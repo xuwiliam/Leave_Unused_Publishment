@@ -1,41 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="10dp"
     android:orientation="horizontal" >
     <RelativeLayout
         android:id="@+id/Left"
+        android:background="@drawable/edit_bg"
         android:layout_width="wrap_content"
-        android:layout_height="130dp"
+        android:layout_marginRight="10dp"
+        android:layout_height="160dp"
         android:layout_weight="1">
         <ImageView
             android:id="@+id/itemleft"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="90dp"
             android:src="@drawable/car1"
-            android:scaleType="center"
-            android:layout_marginLeft="10dp"/>
+            android:scaleType="centerCrop"
+            />
         <TextView
             android:id="@+id/productname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="四驱车"
             android:textColor="@color/text_content"
-            android:textSize="14sp"
+            android:textSize="13sp"
             android:layout_below="@id/itemleft"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"/>
+            android:layout_marginTop="2dp"/>
         <TextView
             android:id="@+id/productprice"
             android:layout_below="@id/productname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="2dp"
             android:layout_marginLeft="10dp"
             android:text="￥ 65.00"
             android:textColor="#FFAD47"
-            android:textSize="15sp"/>
-            
+            android:textSize="13sp"/>
+        <TextView 
+            android:id="@+id/time"
+            android:layout_below="@id/productprice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="10dp"
+            android:text="5分钟前"
+            android:textSize="10sp"
+            android:textColor="@color/text_color_second"/>
     </RelativeLayout>
-
+     <RelativeLayout
+        android:id="@+id/Right"
+        android:background="@drawable/edit_bg"
+        android:layout_width="wrap_content"
+        android:layout_height="160dp"
+        android:layout_weight="1">
+        <ImageView
+            android:id="@+id/itemright"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:src="@drawable/car2"
+            android:scaleType="centerCrop"
+           />
+        <TextView
+            android:id="@+id/productname_"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="四驱车"
+            android:textColor="@color/text_content"
+            android:textSize="13sp"
+            android:layout_below="@id/itemright"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="2dp"/>
+        <TextView
+            android:id="@+id/productprice_"
+            android:layout_below="@id/productname_"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="10dp"
+            android:text="￥ 65.00"
+            android:textColor="#FFAD47"
+            android:textSize="13sp"/>
+        <TextView 
+            android:id="@+id/time_"
+            android:layout_below="@id/productprice_"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="10dp"
+            android:text="5分钟前"
+            android:textSize="10sp"
+            android:textColor="@color/text_color_second"/>
+    </RelativeLayout>
+    
 </LinearLayout>

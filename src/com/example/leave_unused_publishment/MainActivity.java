@@ -8,10 +8,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity extends Activity implements OnClickListener{
     private TextView registeracc;
+    private Button login;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -21,6 +23,8 @@ public class MainActivity extends Activity implements OnClickListener{
 	public void init(){
 		registeracc=(TextView)findViewById(R.id.registeraccount);
 		registeracc.setOnClickListener(this);
+		login=(Button)findViewById(R.id.login_btn);
+		login.setOnClickListener(this);
 	}
 
 	@Override
@@ -45,8 +49,9 @@ public class MainActivity extends Activity implements OnClickListener{
 		int id = v.getId();
 		switch(id){
 		case R.id.registeraccount:
+			startActivity(new Intent(MainActivity.this,RegisterActivity.class));
+		case R.id.login_btn:
 			startActivity(new Intent(MainActivity.this,FirstPageActivity.class));
-			
 		}
 	}
 	

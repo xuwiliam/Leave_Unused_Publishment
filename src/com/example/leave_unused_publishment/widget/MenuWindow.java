@@ -18,7 +18,7 @@ public class MenuWindow {
 	    boolean isShow = false;
 
 	    private final int DEFAULT_XOFF = 10;
-	    private final int DEFAULT_YOFF = 10;
+	    private final int DEFAULT_YOFF = 0;
 	    private final int DEFAULT_WIDTH = ActionBar.LayoutParams.WRAP_CONTENT;
 	    private final int DEFAULT_HEIGHT = ActionBar.LayoutParams.WRAP_CONTENT;
 	    private final int DEFAULT_BACKGROUND = 0x0000000000;

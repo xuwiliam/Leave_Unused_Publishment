@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.example.leave_unused_publishment.adapter.ListViewAdapter;
 import com.example.leave_unused_publishment.widget.BannerViewPager;
 import com.example.leave_unused_publishment.widget.CircleImageView;
 import com.example.leave_unused_publishment.widget.MenuWindow;
@@ -98,11 +99,10 @@ public class FirstPageActivity extends Activity{
     	 map.put("itemname", str[j]);
     	 list.add(map);
      }
-     SimpleAdapter adapter = new SimpleAdapter(this, list,
-             R.layout.item_tv, new String[] { "itemname" },
-             new int[] {R.id.myitem });
+    ListViewAdapter adapter = new ListViewAdapter(this, list);
      pl.setAdapter(adapter);
      MeasureListview(pl);
+     pl.setDividerHeight(0);
 	 zonelayout.setOnClickListener(new OnClickListener() {
     
 	     public void onClick(View v){
