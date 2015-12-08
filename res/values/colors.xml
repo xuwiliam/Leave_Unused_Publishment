@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="login_color">#868686</color>
+    <color name="text_content">#090909</color>
+    <color name="line_color">#D6D6D7</color>
+    <color name="uIcon_color">#CEC9C5</color>
+    <color name="login_btn_content">#d6d6d7</color>
+    <color name="showcolor">#3399ff</color>
+    <color name="text_color_second">#7D7B79</color>
+</resources>
