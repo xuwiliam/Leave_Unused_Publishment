@@ -17,6 +17,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.view.PagerAdapter;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -46,15 +48,23 @@ public class FirstPageActivity extends Activity{
   int imgid[]={R.drawable.beijing1,R.drawable.beijing2,R.drawable.beijing3};
   int typeid[] = {R.drawable.account_qq_nor,R.drawable.account_weibo_nor,R.drawable.logo1,R.drawable.logo_blue,
 		  R.drawable.socialicon_03,R.drawable.socialicon_05,R.drawable.socialicon_08,R.drawable.tab_icons_10};
-  
+  ListViewAdapter ladapter;
   StickyScrollView sv;
+  GridAdapter ga ;
   ListView pl;
   LinearLayout ly;
+  List<Map<String, Object>> list_sale = new ArrayList<Map<String, Object>>();
   int y;
   View mask;
   List<Integer>list;
   String zone[]={"全部","中山大学","广外","广工","广中医"};
-  
+  final Handler handler  = new Handler(){
+	  public void handleMessage(Message msg){
+		    ladapter.notifyDataSetChanged();
+		    ga.notifyDataSetChanged();
+		    MeasureListview(pl);
+	  }
+  };
   public void onCreate(Bundle savedInstanceState){
 	  super.onCreate(savedInstanceState);
 	  setContentView(R.layout.activity_firstpage);
@@ -72,11 +82,8 @@ public class FirstPageActivity extends Activity{
 	 for(int i = 0; i<3; i++){
 	   list.add(imgid[i]);
 	 }
-	 for(int i = 0; i<8; i++){
-		 typel.add(typeid[i]);
-	 }
-	 GridAdapter ga = new GridAdapter(typel,this);
-	 gr.setAdapter(ga);
+	 
+	
 	  adapter_ban = new BannerAdapter(list);
 	 banner.setAdapter(adapter_ban);
 	 sv = (StickyScrollView)findViewById(R.id.scroll);
@@ -84,25 +91,32 @@ public class FirstPageActivity extends Activity{
 	 grouplayout=(RelativeLayout)findViewById(R.id.grouplayout);
 	 sortlayout=(RelativeLayout)findViewById(R.id.sortlayout);
 	 selectionlayout=(RelativeLayout)findViewById(R.id.selectlayout);
-	 
-	 String str[]=new String[200];
-     for(int j = 0; j<200; j++){
-    	 if(j<190)
-    	 str[j]="xxx";
-    	 else
-         str[j]="aaa";
-     }
-     List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-     Map<String,Object>map;
-     for(int j = 0; j<200; j++){
-    	 map = new HashMap<String,Object>();
-    	 map.put("itemname", str[j]);
-    	 list.add(map);
-     }
-    ListViewAdapter adapter = new ListViewAdapter(this, list);
-     pl.setAdapter(adapter);
-     MeasureListview(pl);
-     pl.setDividerHeight(0);
+	  String str[]=new String[200];
+	     for(int j = 0; j<200; j++){
+	    	 if(j<190)
+	    	 str[j]="xxx";
+	    	 else
+	         str[j]="aaa";
+	     }
+	     
+	     Map<String,Object>map;
+	    /* for(int j = 0; j<5; j++){
+	    	 map = new HashMap<String,Object>();
+	    	 map.put("itemname", str[j]);
+	    	 list_sale.add(map);
+	     }*/
+	     ladapter = new ListViewAdapter(FirstPageActivity.this, list_sale);
+	     pl.setAdapter(ladapter);
+        // MeasureListview(pl);
+         pl.setDividerHeight(0);
+        /* for(int i = 0; i<1; i++){
+			 typel.add(typeid[i]);
+		 }*/
+        ga = new GridAdapter(typel,FirstPageActivity.this);
+	    gr.setAdapter(ga);
+	
+    
+     
 	 zonelayout.setOnClickListener(new OnClickListener() {
     
 	     public void onClick(View v){
@@ -136,6 +150,8 @@ public class FirstPageActivity extends Activity{
 			};
 			timer.scheduleAtFixedRate(task, 0, 3000);
 		}
+	 handler.postDelayed(runnable, 3000);
+	
   }
   public void openMenuWindow(View v){
     //  backgroundAlpha(0.7f);
@@ -185,6 +201,11 @@ public class FirstPageActivity extends Activity{
       params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));    
       listView.setLayoutParams(params);    
   } 
+  public void onResume(){
+	  super.onResume();
+	  
+	 
+  }
   public void onWindowFocusChanged(boolean hasFocus){
 	  super.onWindowFocusChanged(hasFocus);
 	  y=ly.getTop();
@@ -268,4 +289,27 @@ public class FirstPageActivity extends Activity{
           return convertView;
       }
   }
+  final Runnable runnable = new Runnable(){
+	  public void run(){
+		  String str[]=new String[200];
+		     for(int j = 0; j<200; j++){
+		    	 if(j<190)
+		    	 str[j]="xxx";
+		    	 else
+		         str[j]="aaa";
+		     }
+		     
+		     Map<String,Object>map;
+		     for(int j = 0; j<200; j++){
+		    	 map = new HashMap<String,Object>();
+		    	 map.put("itemname", str[j]);
+		    	 list_sale.add(map);
+		     }
+		    // ladapter = new ListViewAdapter(FirstPageActivity.this, list_sale);
+		     for(int i = 0; i<8; i++){
+				 typel.add(typeid[i]);
+			 }
+		     handler.sendEmptyMessage(0);
+	  }
+  };
 }

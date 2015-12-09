@@ -50,8 +50,10 @@ public class MainActivity extends Activity implements OnClickListener{
 		switch(id){
 		case R.id.registeraccount:
 			startActivity(new Intent(MainActivity.this,RegisterActivity.class));
+			break;
 		case R.id.login_btn:
 			startActivity(new Intent(MainActivity.this,FirstPageActivity.class));
+			break;
 		}
 	}
 	
