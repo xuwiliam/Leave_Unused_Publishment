@@ -7,4 +7,5 @@
     <color name="login_btn_content">#d6d6d7</color>
     <color name="showcolor">#3399ff</color>
     <color name="text_color_second">#7D7B79</color>
+    <color name="price_color">#FFAD47</color>
 </resources>

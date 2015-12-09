@@ -32,6 +32,8 @@
             android:name=".SettingPwdActivity"/>   
         <activity
             android:name="com.example.leave_unused_publishment.FirstPageActivity"/>
+        <activity
+            android:name="com.example.leave_unused_publishment.DetailActivity"/>
     </application>
     
 </manifest>

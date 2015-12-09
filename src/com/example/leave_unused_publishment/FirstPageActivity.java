@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.example.leave_unused_publishment.Common.Global;
 import com.example.leave_unused_publishment.adapter.ListViewAdapter;
 import com.example.leave_unused_publishment.widget.BannerViewPager;
 import com.example.leave_unused_publishment.widget.CircleImageView;
@@ -27,6 +28,8 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -37,7 +40,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.ImageView.ScaleType;
-public class FirstPageActivity extends Activity{
+public class FirstPageActivity extends Activity implements OnItemClickListener{
   RelativeLayout zonelayout,grouplayout,sortlayout,selectionlayout;
   BannerViewPager banner;
   BannerAdapter adapter_ban;
@@ -62,7 +65,7 @@ public class FirstPageActivity extends Activity{
 	  public void handleMessage(Message msg){
 		    ladapter.notifyDataSetChanged();
 		    ga.notifyDataSetChanged();
-		    MeasureListview(pl);
+		    Global.MeasureListview(pl);
 	  }
   };
   public void onCreate(Bundle savedInstanceState){
@@ -73,6 +76,7 @@ public class FirstPageActivity extends Activity{
   public void init(){
 	 ly=(LinearLayout)findViewById(R.id.conditionlayout);
 	 pl = (ListView)findViewById(R.id.productlist);
+	 pl.setOnItemClickListener(this);
 	// mask = (View)findViewById(R.id.mask);
 	 banner = (BannerViewPager)findViewById(R.id.picwall);
 	 gr = (GridView)findViewById(R.id.type);
@@ -185,22 +189,7 @@ public class FirstPageActivity extends Activity{
       //backgroundAlpha(0.7f);
       //mask.setVisibility(View.VISIBLE);
   }
-  public void MeasureListview(ListView listView) {    
-      ListAdapter listAdapter = listView.getAdapter();    
-      
-      if (listAdapter == null) {    
-          return;    
-      }    
-      int totalHeight = 0;    
-      for (int i = 0, len = listAdapter.getCount(); i < len; i++) { // listAdapter.getCount()返回数据项的数目    
-          View listItem = listAdapter.getView(i, null, listView);    
-          listItem.measure(0, 0); // 计算子项View 的宽高    
-          totalHeight += listItem.getMeasuredHeight(); // 统计所有子项的总高度    
-      }    
-      ViewGroup.LayoutParams params = listView.getLayoutParams();    
-      params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));    
-      listView.setLayoutParams(params);    
-  } 
+ 
   public void onResume(){
 	  super.onResume();
 	  
@@ -312,4 +301,9 @@ public class FirstPageActivity extends Activity{
 		     handler.sendEmptyMessage(0);
 	  }
   };
+@Override
+public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+	// TODO Auto-generated method stub
+	startActivity(new Intent(FirstPageActivity.this,DetailActivity.class));
+  }
 }
