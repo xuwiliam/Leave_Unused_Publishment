@@ -3,16 +3,14 @@
     xmlns:myview="http://schemas.android.com/apk/res-auto"
     android:layout_width="70dp"
     android:layout_height="70dp" >
-    <com.example.leave_unused_publishment.widget.CircleImageView
+    <ImageView
         android:id="@+id/typeimg"
         android:src="@drawable/socialicon_08"
         android:scaleType="centerCrop"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        myview:civ_border_width="1dp"
-        myview:civ_border_color="#ffffff"/>
+        android:layout_marginTop="10dp"/>
     <TextView
         android:id="@+id/imgcontent"
         android:layout_width="wrap_content"

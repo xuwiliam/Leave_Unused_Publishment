@@ -22,18 +22,54 @@
    <com.example.leave_unused_publishment.widget.BannerViewPager
         android:id="@+id/picwall"
         android:layout_width="match_parent"
+        android:visibility="gone"
         android:layout_height="150dp"
         android:layout_below="@id/search"
-        android:layout_marginTop="10dp" 
-    
-        ></com.example.leave_unused_publishment.widget.BannerViewPager>
-
+        android:layout_marginTop="10dp" ></com.example.leave_unused_publishment.widget.BannerViewPager>
+      <LinearLayout
+          android:id="@+id/slayout"
+          android:layout_below="@id/picwall"
+          android:layout_width="140dp"
+          android:layout_centerHorizontal="true"
+          android:layout_marginTop="20dp"
+          android:layout_height="30dp"
+          android:orientation="horizontal">
+          <RelativeLayout
+              android:id="@+id/thing"
+              android:layout_width="70dp"
+              android:background="@drawable/half_corner"
+              android:layout_height="30dp">
+              <TextView
+                  android:id="@+id/thingtext"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="@string/thing"
+                  android:textSize="12sp"
+                  android:textColor="#ff7777"
+                  android:layout_centerInParent="true"/>
+                  
+          </RelativeLayout>
+          <RelativeLayout 
+              android:id="@+id/people"
+              android:layout_width="70dp"
+              android:layout_height="30dp"
+              android:background="@drawable/stroke_half_corner_right">
+               <TextView
+                  android:id="@+id/peopletext"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="@string/people"
+                  android:textSize="12sp"
+                  android:textColor="#ffffff"
+                  android:layout_centerInParent="true"/>
+          </RelativeLayout>
+      </LinearLayout>
     <GridView
         android:id="@+id/type"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_alignLeft="@id/picwall"
-        android:layout_below="@+id/picwall"
+        android:layout_below="@+id/slayout"
         android:layout_marginTop="10dp"
         android:horizontalSpacing="2.5dip"
         android:numColumns="4"

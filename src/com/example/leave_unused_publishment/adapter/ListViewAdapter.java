@@ -5,11 +5,13 @@ import java.util.List;
 import com.example.leave_unused_publishment.R;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -47,10 +49,9 @@ public class ListViewAdapter  extends BaseAdapter{
 		if(convertView==null){
 			convertView = LayoutInflater.from(context).inflate(R.layout.item_sale, null);
 		}
-		//RelativeLayout l = (RelativeLayout)convertView.findViewById(R.id.Left);
-		//RelativeLayout r = (RelativeLayout)convertView.findViewById(R.id.Right);
-		//l.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,lv.getHeight()/4));
-		//r.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,lv.getHeight()/4));
+		RelativeLayout l = (RelativeLayout)convertView.findViewById(R.id.Left);
+		RelativeLayout r = (RelativeLayout)convertView.findViewById(R.id.Right);
+		
 
 		return convertView;
 	}

@@ -67,7 +67,7 @@ public class DetailActivity extends Activity implements OnClickListener,OnItemCl
     	  input.setVisibility(View.GONE);
     	  threebtn.setVisibility(View.VISIBLE);
     	}
-    	finish();
+    	else finish();
     }
     public void init(){
       list=new ArrayList<Map<String,String>>();
@@ -124,7 +124,7 @@ public class DetailActivity extends Activity implements OnClickListener,OnItemCl
     public void onClick(View v){
     	int id = v.getId();
     	switch(id){
-    	case R.id.likeorselled:
+      case R.id.likeorselled:
     		break;
     	case R.id.comment:
          threebtn.setVisibility(View.GONE);

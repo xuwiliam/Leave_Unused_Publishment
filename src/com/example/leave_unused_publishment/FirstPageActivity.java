@@ -58,7 +58,6 @@ public class FirstPageActivity extends Activity implements OnItemClickListener{
   LinearLayout ly;
   List<Map<String, Object>> list_sale = new ArrayList<Map<String, Object>>();
   int y;
-  View mask;
   List<Integer>list;
   String zone[]={"全部","中山大学","广外","广工","广中医"};
   final Handler handler  = new Handler(){
@@ -74,11 +73,14 @@ public class FirstPageActivity extends Activity implements OnItemClickListener{
 	  init();
   }
   public void init(){
+	  
 	 ly=(LinearLayout)findViewById(R.id.conditionlayout);
 	 pl = (ListView)findViewById(R.id.productlist);
 	 pl.setOnItemClickListener(this);
 	// mask = (View)findViewById(R.id.mask);
 	 banner = (BannerViewPager)findViewById(R.id.picwall);
+	 banner.setVisibility(View.VISIBLE);
+	 ((LinearLayout)findViewById(R.id.slayout)).setVisibility(View.GONE);
 	 gr = (GridView)findViewById(R.id.type);
 	 typel = new ArrayList<Integer>();
 	 list = new ArrayList<Integer>();
@@ -199,6 +201,7 @@ public class FirstPageActivity extends Activity implements OnItemClickListener{
 	  super.onWindowFocusChanged(hasFocus);
 	  y=ly.getTop();
 	  Log.e("y",String.valueOf(y));
+	  Global.width=pl.getWidth();
 	  //mask.setVisibility(View.GONE);
 	}
   private class BannerAdapter extends PagerAdapter {
@@ -270,7 +273,7 @@ public class FirstPageActivity extends Activity implements OnItemClickListener{
           int height = gr.getHeight();
           GridView.LayoutParams params = new GridView.LayoutParams(width/3,height/3);
           convertView.setLayoutParams(params);*/
-          CircleImageView img = (CircleImageView)convertView.findViewById(R.id.typeimg);
+          ImageView img = (ImageView)convertView.findViewById(R.id.typeimg);
           img.setImageResource(contentlist.get(position));
           //img.setScaleType(ScaleType.CENTER_CROP);
           //TextView text = (TextView)convertView.findViewById(R.id.itemtext);

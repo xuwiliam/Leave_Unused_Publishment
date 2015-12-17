@@ -28,4 +28,13 @@
     <string name="private_chat">私聊</string>
     <string name="response">回复</string>
     <string name="cancel">取消</string>
+    <string name="thing">物品</string>
+    <string name="people">人</string>
+    <string name="me">我</string>
+    <string name="publishexchange">发布转让</string>
+    <string name="publish">发布</string>
+    <string name="acharge">可议价</string>
+    <string name="allnew">全新</string>
+    <string name="price">价格</string>
+    <string name="type">分类</string>
 </resources>

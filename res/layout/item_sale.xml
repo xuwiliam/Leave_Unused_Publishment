@@ -2,29 +2,29 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="10dp"
+    android:paddingBottom="5dp"
     android:orientation="horizontal" >
     <RelativeLayout
         android:id="@+id/Left"
         android:background="@drawable/edit_bg"
         android:layout_width="wrap_content"
-        android:layout_marginRight="10dp"
-        android:layout_height="160dp"
+        android:layout_marginRight="2dp"
+        android:layout_height="170dp"
         android:layout_weight="1">
+
         <ImageView
             android:id="@+id/itemleft"
             android:layout_width="match_parent"
-            android:layout_height="90dp"
-            android:src="@drawable/car1"
-            android:scaleType="centerCrop"
-            />
+            android:layout_height="120dp"
+            android:src="@drawable/car1" />
+
         <TextView
             android:id="@+id/productname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="四驱车"
             android:textColor="@color/text_content"
-            android:textSize="13sp"
+            android:textSize="10sp"
             android:layout_below="@id/itemleft"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="2dp"/>
@@ -37,7 +37,7 @@
             android:layout_marginLeft="10dp"
             android:text="￥ 65.00"
             android:textColor="#FFAD47"
-            android:textSize="13sp"/>
+            android:textSize="10sp"/>
         <TextView 
             android:id="@+id/time"
             android:layout_below="@id/productprice"
@@ -45,24 +45,26 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="5dp"
             android:layout_marginRight="10dp"
             android:text="5分钟前"
-            android:textSize="10sp"
+            android:textSize="8sp"
             android:textColor="@color/text_color_second"/>
     </RelativeLayout>
      <RelativeLayout
         android:id="@+id/Right"
         android:background="@drawable/edit_bg"
         android:layout_width="wrap_content"
-        android:layout_height="160dp"
+        android:layout_marginLeft="2dp"
+        android:layout_height="170dp"
         android:layout_weight="1">
         <ImageView
             android:id="@+id/itemright"
             android:layout_width="match_parent"
-            android:layout_height="90dp"
+            android:layout_height="120dp"
             android:src="@drawable/car2"
-            android:scaleType="centerCrop"
+            android:scaleType="fitXY"
+           
            />
         <TextView
             android:id="@+id/productname_"
@@ -70,7 +72,7 @@
             android:layout_height="wrap_content"
             android:text="四驱车"
             android:textColor="@color/text_content"
-            android:textSize="13sp"
+            android:textSize="10sp"
             android:layout_below="@id/itemright"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="2dp"/>
@@ -83,7 +85,7 @@
             android:layout_marginLeft="10dp"
             android:text="￥ 65.00"
             android:textColor="#FFAD47"
-            android:textSize="13sp"/>
+            android:textSize="10sp"/>
         <TextView 
             android:id="@+id/time_"
             android:layout_below="@id/productprice_"
@@ -91,10 +93,10 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="5dp"
             android:layout_marginRight="10dp"
             android:text="5分钟前"
-            android:textSize="10sp"
+            android:textSize="8sp"
             android:textColor="@color/text_color_second"/>
     </RelativeLayout>
     

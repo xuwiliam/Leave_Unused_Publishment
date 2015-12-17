@@ -6,6 +6,8 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 public class Global {
+  public static int height=0;
+  public static int width=0;
   public static void MeasureListview(ListView listView) {    
       ListAdapter listAdapter = listView.getAdapter();    
       
