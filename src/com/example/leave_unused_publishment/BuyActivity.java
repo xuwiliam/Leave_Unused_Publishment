@@ -61,6 +61,7 @@ public class BuyActivity extends Activity implements OnClickListener{
 	    if(msg.what==0){
 	    	ga.notifyDataSetChanged();
 	    	ladapter.notifyDataSetChanged();
+	    	 Global.MeasureListview(pl);
 	    }
 	  }
   };
@@ -164,8 +165,24 @@ public class BuyActivity extends Activity implements OnClickListener{
 		  people.setTextColor(getResources().getColor(R.color.select_text));
 	      break;
 	  case R.id.zonelayout:
-		  sv.scrollTo(0, y);
-		  openMenuWindow(v);
+		  sv.scrollTo(0, Global.height);
+		  openMenuWindow(v,Global.zone);
+	      break;
+	  case R.id.grouplayout:
+		  sv.scrollTo(0, Global.height);
+          //backgroundAlpha(0.7f);
+	      openMenuWindow(v,Global.group);
+	      break;
+	  case R.id.sortlayout:
+		  sv.scrollTo(0, Global.height);
+          //backgroundAlpha(0.7f);
+	      openMenuWindow(v,Global.sort);
+	      break;
+	  case R.id.selectlayout:
+		  sv.scrollTo(0, Global.height);
+          //backgroundAlpha(0.7f);
+	      openMenuWindow(v,Global.select);
+	      break;
 	  }
  		
  	}
@@ -209,26 +226,20 @@ public class BuyActivity extends Activity implements OnClickListener{
           return convertView;
       }
   }
-  public void openMenuWindow(View v){
+  public void openMenuWindow(View v,String namearr[]){
 	    //  backgroundAlpha(0.7f);
 		  View view = LayoutInflater.from(this).inflate(R.layout.menu_window, null);
 		  ListView l = (ListView)view.findViewById(R.id.mylist);
 		  List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-		  Map<String,Object>map = new HashMap<String,Object>();
-		  map.put("itemname", zone[0]);
-		  list.add(map);
-		  map = new HashMap<String,Object>();
-		  map.put("itemname", zone[1]);
-		  list.add(map);
-		  map = new HashMap<String,Object>();
-		  map.put("itemname", zone[2]);
-		  list.add(map);
-		  map = new HashMap<String,Object>();
-		  map.put("itemname", zone[3]);
-		  list.add(map);
-		  map = new HashMap<String,Object>();
-		  map.put("itemname", zone[4]);
-		  list.add(map);
+		  Map<String,Object>map = null;
+		  int i = 0;
+		  for(; i<namearr.length; i++){
+			  
+		    map = new HashMap<String,Object>();
+		    map.put("itemname", namearr[i]);
+		    list.add(map);
+		  }
+		 
 		  SimpleAdapter adapter = new SimpleAdapter(this, list,
 	              R.layout.item_tv, new String[] { "itemname" },
 	              new int[] {R.id.myitem });

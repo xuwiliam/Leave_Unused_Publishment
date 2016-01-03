@@ -3,6 +3,8 @@ package com.example.leave_unused_publishment;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.leave_unused_publishment.Common.Global;
+
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -14,6 +16,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -114,6 +117,7 @@ public class MainActivity extends ActivityGroup{
 	            public void onTabChanged(String tabId) {
 
 	                if ("f".equals(tabId)) {
+	                	
 	                    pager.setCurrentItem(0);
 	                }
 	                if ("b".equals(tabId)) {
@@ -206,4 +210,24 @@ private class MyPageAdapter extends PagerAdapter {
         }
 
 	}
+ @Override
+public void onWindowFocusChanged(boolean hasFocus) {
+	if(Global.firstpageactivity!=null){
+		Global.height=Global.firstpageactivity.ly.getTop();
+	    Log.e("focus",String.valueOf(Global.height));
+	}
+	super.onWindowFocusChanged(hasFocus);
+}
+  @Override
+ public void onActivityResult(int requestCode, int resultCode, Intent data) {
+	// TODO Auto-generated method stub
+	// Log.e(null,null);
+	  Log.e("here","here");
+	 if(Global.pubactivity!=null){
+		 Global.pubactivity.onActivityResult_pub(requestCode, resultCode, data);
+	   
+	 }
+	 
+	
+}
 }

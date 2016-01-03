@@ -101,10 +101,7 @@
 	          android:layout_height="30dp"
 	          android:layout_centerVertical="true"
 	          android:layout_marginLeft="10dp"
-	          android:background="@color/price_color"
-	          android:text="@string/acharge"
-	          android:textSize="12sp"
-	          android:textColor="@color/general"/>
+	          android:background="@drawable/acharge"/>
 	      <TextView
 	          android:id="@+id/allnew"
 	          android:layout_width="80dp"
@@ -112,10 +109,7 @@
 	          android:layout_centerVertical="true"
 	          android:layout_toRightOf="@id/achargeprice"
 	          android:layout_marginLeft="10dp"
-	          android:text="@string/allnew"
-	          android:background="@color/unselect"
-	          android:textSize="12sp"
-	          android:textColor="@color/general"/>
+	          android:background="@drawable/not_allnew"/>
 	  </RelativeLayout>
 	  <View
 	      android:layout_marginTop="5dp"

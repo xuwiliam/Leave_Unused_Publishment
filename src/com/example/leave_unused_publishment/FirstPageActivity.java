@@ -40,6 +40,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.ImageView.ScaleType;
+import android.widget.TextView;
 public class FirstPageActivity extends Activity implements OnItemClickListener{
   RelativeLayout zonelayout,grouplayout,sortlayout,selectionlayout;
   BannerViewPager banner;
@@ -49,8 +50,9 @@ public class FirstPageActivity extends Activity implements OnItemClickListener{
   private GridView gr;
   private List<Integer> typel;
   int imgid[]={R.drawable.beijing1,R.drawable.beijing2,R.drawable.beijing3};
-  int typeid[] = {R.drawable.account_qq_nor,R.drawable.account_weibo_nor,R.drawable.logo1,R.drawable.logo_blue,
-		  R.drawable.socialicon_03,R.drawable.socialicon_05,R.drawable.socialicon_08,R.drawable.tab_icons_10};
+  int typeid[] = {R.drawable.book,R.drawable.electronic,R.drawable.pingpong,R.drawable.hiking,
+		  R.drawable.clothes,R.drawable.digitproduct,R.drawable.lifeservice,R.drawable.others};
+  private String name[]={"书籍资料","家用电器","文体用品","出行工具","服装鞋裙","数码产品","生活服务","其它"};
   ListViewAdapter ladapter;
   StickyScrollView sv;
   GridAdapter ga ;
@@ -59,7 +61,7 @@ public class FirstPageActivity extends Activity implements OnItemClickListener{
   List<Map<String, Object>> list_sale = new ArrayList<Map<String, Object>>();
   int y;
   List<Integer>list;
-  String zone[]={"全部","中山大学","广外","广工","广中医"};
+ 
   final Handler handler  = new Handler(){
 	  public void handleMessage(Message msg){
 		    ladapter.notifyDataSetChanged();
@@ -67,9 +69,15 @@ public class FirstPageActivity extends Activity implements OnItemClickListener{
 		    Global.MeasureListview(pl);
 	  }
   };
+  final Handler handler_ban = new Handler(){
+	public void handleMessage(Message msg){  
+		
+	}
+  };
   public void onCreate(Bundle savedInstanceState){
 	  super.onCreate(savedInstanceState);
 	  setContentView(R.layout.activity_firstpage);
+	  Global.firstpageactivity=this;
 	  init();
   }
   public void init(){
@@ -90,7 +98,7 @@ public class FirstPageActivity extends Activity implements OnItemClickListener{
 	 }
 	 
 	
-	  adapter_ban = new BannerAdapter(list);
+	 adapter_ban = new BannerAdapter(list);
 	 banner.setAdapter(adapter_ban);
 	 sv = (StickyScrollView)findViewById(R.id.scroll);
 	 zonelayout=(RelativeLayout)findViewById(R.id.zonelayout);
@@ -126,13 +134,44 @@ public class FirstPageActivity extends Activity implements OnItemClickListener{
 	 zonelayout.setOnClickListener(new OnClickListener() {
     
 	     public void onClick(View v){
-	    	 Log.e("getTop",String.valueOf(y));
-	    	 sv.scrollTo(0, y);
+	    	 Log.e("getTop",String.valueOf(Global.height));
+	    	 sv.scrollTo(0, Global.height);
              //backgroundAlpha(0.7f);
-	    	 openMenuWindow(v);
+	    	 openMenuWindow(v,Global.zone);
+	    	 
 	     }
 	 });
-	 if (!list.isEmpty()) {
+	 grouplayout.setOnClickListener(new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			 sv.scrollTo(0, Global.height);
+             //backgroundAlpha(0.7f);
+	    	 openMenuWindow(v,Global.group);
+		}
+	});
+	sortlayout.setOnClickListener(new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			 sv.scrollTo(0, Global.height);
+             //backgroundAlpha(0.7f);
+	    	 openMenuWindow(v,Global.sort);	
+		}
+	});
+	selectionlayout.setOnClickListener(new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			 sv.scrollTo(0, Global.height);
+             //backgroundAlpha(0.7f);
+	    	 openMenuWindow(v,Global.select);
+		}
+	});
+	/* if (!list.isEmpty()) {
 			// 刷新的时候，先把原来的去掉
 			if (timer != null) {
 				timer.cancel();
@@ -155,30 +194,24 @@ public class FirstPageActivity extends Activity implements OnItemClickListener{
 				}
 			};
 			timer.scheduleAtFixedRate(task, 0, 3000);
-		}
+		}*/
 	 handler.postDelayed(runnable, 3000);
-	
+	handler_ban.postDelayed(runnable2, 2000);
   }
-  public void openMenuWindow(View v){
+  public void openMenuWindow(View v,String namearr[]){
     //  backgroundAlpha(0.7f);
 	  View view = LayoutInflater.from(this).inflate(R.layout.menu_window, null);
 	  ListView l = (ListView)view.findViewById(R.id.mylist);
 	  List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-	  Map<String,Object>map = new HashMap<String,Object>();
-	  map.put("itemname", zone[0]);
-	  list.add(map);
-	  map = new HashMap<String,Object>();
-	  map.put("itemname", zone[1]);
-	  list.add(map);
-	  map = new HashMap<String,Object>();
-	  map.put("itemname", zone[2]);
-	  list.add(map);
-	  map = new HashMap<String,Object>();
-	  map.put("itemname", zone[3]);
-	  list.add(map);
-	  map = new HashMap<String,Object>();
-	  map.put("itemname", zone[4]);
-	  list.add(map);
+	  Map<String,Object>map = null;
+	  int i = 0;
+	  for(; i<namearr.length; i++){
+		  
+	    map = new HashMap<String,Object>();
+	    map.put("itemname", namearr[i]);
+	    list.add(map);
+	  }
+	 
 	  SimpleAdapter adapter = new SimpleAdapter(this, list,
               R.layout.item_tv, new String[] { "itemname" },
               new int[] {R.id.myitem });
@@ -275,6 +308,8 @@ public class FirstPageActivity extends Activity implements OnItemClickListener{
           convertView.setLayoutParams(params);*/
           ImageView img = (ImageView)convertView.findViewById(R.id.typeimg);
           img.setImageResource(contentlist.get(position));
+          TextView tv = (TextView)convertView.findViewById(R.id.imgcontent);
+          tv.setText(name[position]);
           //img.setScaleType(ScaleType.CENTER_CROP);
           //TextView text = (TextView)convertView.findViewById(R.id.itemtext);
           //text.setText(cont);
@@ -303,6 +338,21 @@ public class FirstPageActivity extends Activity implements OnItemClickListener{
 			 }
 		     handler.sendEmptyMessage(0);
 	  }
+  };
+  final Runnable runnable2 = new Runnable(){
+	  public void run() {
+			bannerIndex = banner.getViewPager().getCurrentItem() + 1;
+			if (bannerIndex >= adapter_ban.getCount()) {
+				bannerIndex = 0;
+			}
+			runOnUiThread(new Runnable() {
+				public void run() {
+//					Log.d(Constants.DEBUG_TAG, "set banner, index= " + bannerIndex);
+					banner.getViewPager().setCurrentItem(bannerIndex);
+				}
+			});
+			handler_ban.postDelayed(this, 3000);
+		}
   };
 @Override
 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

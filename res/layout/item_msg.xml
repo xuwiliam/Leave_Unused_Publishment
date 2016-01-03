@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:padding="10dp"
+    android:layout_height="wrap_content" >
+    <com.example.leave_unused_publishment.widget.CircleImageView 
+        android:id="@+id/msguicon"
+        android:layout_width="30dp"
+        android:layout_marginTop="5dp"
+        android:layout_height="30dp"
+        android:src="@drawable/beijing1"/>
+    <TextView
+        android:id="@+id/msguname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        
+        android:text="Cici"
+        android:textSize="10sp"
+        android:textColor="@color/text_content"
+        android:layout_toRightOf="@id/msguicon"
+        android:layout_alignTop="@id/msguicon"
+        android:layout_marginLeft="10dp"/>
+    
+   <TextView
+        android:id="@+id/mymsgcontent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="能便宜一点么"
+        android:textSize="15sp"
+        android:textColor="@color/text_content"
+        android:layout_below="@id/msguname"
+        android:layout_alignLeft="@id/msguname"
+        android:layout_marginTop="4dp" />
+    <TextView
+        android:id="@+id/mymsgtime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="5分钟前"
+        android:textSize="10sp"
+        android:textColor="@color/text_color_second"
+        android:layout_below="@id/mymsgcontent"
+        android:layout_alignLeft="@id/mymsgcontent"
+        android:layout_marginTop="10dp"/>
+    <ImageView
+        android:id="@+id/wantitem"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/cake2"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"/>
+        
+</RelativeLayout>

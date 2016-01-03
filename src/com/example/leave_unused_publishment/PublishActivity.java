@@ -4,11 +4,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.example.leave_unused_publishment.Common.Global;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,6 +21,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -43,11 +48,13 @@ public class PublishActivity extends Activity{
      //锁定屏幕
      setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
      setContentView(R.layout.activity_publish);
-	setContentView(R.layout.activity_publish);
+	
     init();
   }
   public void init(){
 	 gv=(GridView)findViewById(R.id.gridView1);
+	 Global.pubactivity = PublishActivity.this;
+	 
 	 l=new ArrayList<Map<String,Object>>();
 	 bmp=BitmapFactory.decodeResource(getResources(), R.drawable.addpic);
 	 Map map = new HashMap();
@@ -82,7 +89,7 @@ public class PublishActivity extends Activity{
 					//选择图片
 					Intent intent = new Intent(Intent.ACTION_PICK,       
 	                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);  
-	                startActivityForResult(intent, IMAGE_OPEN);  
+	                getParent().startActivityForResult(intent, IMAGE_OPEN);  
 	                //通过onResume()刷新数据
 				}
 				else {
@@ -96,20 +103,14 @@ public class PublishActivity extends Activity{
   @Override
  	protected void onResume() {
  		super.onResume();
- 		if(!TextUtils.isEmpty(pathImage)){
- 			Bitmap addbmp=BitmapFactory.decodeFile(pathImage);
- 			Map<String, Object> map = new HashMap<String, Object>();
- 	        map.put("itemImage", addbmp);
- 	        l.add(0, map);
- 	      
- 	        simpleAdapter.notifyDataSetChanged();
- 	        pathImage = null;
- 		}
+ 		
  	}
-  protected void onActivityResult(int requestCode, int resultCode, Intent data) {  
-      super.onActivityResult(requestCode, resultCode, data);        
+  protected void onActivityResult_pub(int requestCode, int resultCode, Intent data) {  
+      //super.onActivityResult(requestCode, resultCode, data);        
       //打开图片  
-      if(resultCode==RESULT_OK && requestCode==IMAGE_OPEN) {        
+	  Log.e("pub","pub");
+      if( requestCode==IMAGE_OPEN) {        
+    	  Log.e("pub1","pub1");
           Uri uri = data.getData();  
           if (!TextUtils.isEmpty(uri.getAuthority())) {  
               //查询选择图片  
@@ -127,6 +128,7 @@ public class PublishActivity extends Activity{
               cursor.moveToFirst();  
               pathImage = cursor.getString(cursor  
                       .getColumnIndex(MediaStore.Images.Media.DATA));  
+              handler.sendEmptyMessage(0);
           }
       }  //end if 打开图片
     }
@@ -150,5 +152,18 @@ public class PublishActivity extends Activity{
   		});
   	builder.create().show();
   }
+    final Handler handler = new Handler(){
+    	public void handleMessage(Message msg){
+    		if(!TextUtils.isEmpty(pathImage)){
+     			Bitmap addbmp=BitmapFactory.decodeFile(pathImage);
+     			Map<String, Object> map = new HashMap<String, Object>();
+     	        map.put("itemImage", addbmp);
+     	        l.add(0, map);
+     	      
+     	        simpleAdapter.notifyDataSetChanged();
+     	        pathImage = null;
+     		}
+    	}
+    };
   }
 

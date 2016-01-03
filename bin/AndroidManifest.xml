@@ -48,6 +48,9 @@
             android:name="com.example.leave_unused_publishment.MainActivity"/>
         <activity android:name="com.example.leave_unused_publishment.MessageActivity"></activity>
         <activity android:name="com.example.leave_unused_publishment.EmptyActivity"></activity>
+        <activity android:name="com.example.leave_unused_publishment.CommentActivity"></activity>
+        <activity android:name="com.example.leave_unused_publishment.PrivateMsgActivity"></activity>
+        <activity android:name="com.example.leave_unused_publishment.SystemActivity"></activity>
     </application>
     
 </manifest>

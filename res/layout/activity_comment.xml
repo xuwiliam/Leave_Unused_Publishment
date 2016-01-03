@@ -150,9 +150,9 @@
            android:layout_width="wrap_content">
         <ImageView
                android:id="@+id/likeorselledimg"
-               android:layout_width="30dp"
-               android:layout_height="30dp"
-               android:src="@drawable/icons_21"
+               android:layout_width="20dp"
+               android:layout_height="20dp"
+               android:src="@drawable/good"
                android:layout_centerVertical="true"
                android:layout_centerHorizontal="true"/>
            <TextView
@@ -163,7 +163,7 @@
                 android:layout_centerVertical="true"
                 android:textSize="10sp"
                 android:layout_toRightOf="@id/likeorselledimg"
-                android:textColor="@color/text_color_second"/>  
+                android:textColor="@color/select_text"/>  
           
             <View
                 android:layout_width="1dp"
@@ -184,16 +184,16 @@
               android:layout_width="wrap_content">
           <ImageView
                android:id="@+id/commentimg"
-               android:layout_width="30dp"
-               android:layout_height="30dp"
-               android:src="@drawable/icons_21"
+               android:layout_width="20dp"
+               android:layout_height="20dp"
+               android:src="@drawable/comment"
                android:layout_centerInParent="true"/>
            <TextView
                android:id="@+id/commenttext"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:text="@string/comment"
-               android:textColor="@color/text_content"
+               android:textColor="@color/select_text"
                android:textSize="10sp"
                android:layout_toRightOf="@id/commentimg"
                android:layout_centerVertical="true"/>
@@ -214,16 +214,16 @@
            
         <ImageView
                 android:id="@+id/chatimg"
-                  android:layout_width="30dp"
-                  android:layout_height="30dp"
-                  android:src="@drawable/icons_21"
+                  android:layout_width="20dp"
+                  android:layout_height="20dp"
+                  android:src="@drawable/privatechat"
                   android:layout_centerInParent="true"/>
            <TextView
                   android:id="@+id/chattext"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:text="@string/private_chat"
-                  android:textColor="@color/text_content"
+                  android:textColor="@color/select_text"
                   android:textSize="10sp"
                   android:layout_toRightOf="@id/chatimg"
                   android:layout_centerVertical="true"/>
