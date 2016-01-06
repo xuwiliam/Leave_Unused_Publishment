@@ -10,13 +10,13 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.ListView;
 
-public class PrivateMsgActivity extends Activity{
+public class PrivateMsgActivity extends BaseActivity{
   ListView mylist;
   MyMsgListAdapter adapter;
   List<Map> arr = new ArrayList<Map>();
   
   @Override
-  protected void onCreate(Bundle savedInstanceState) {
+public void onCreate(Bundle savedInstanceState) {
 	// TODO Auto-generated method stub
 	super.onCreate(savedInstanceState);
     setContentView(R.layout.msgtablayout);

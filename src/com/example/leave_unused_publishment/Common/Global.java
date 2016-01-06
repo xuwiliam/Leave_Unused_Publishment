@@ -1,11 +1,22 @@
 package com.example.leave_unused_publishment.Common;
 
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import com.example.leave_unused_publishment.FirstPageActivity;
 import com.example.leave_unused_publishment.PublishActivity;
 
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -25,6 +36,7 @@ public class Global {
   public static String sort[]={"默认排序","最新发布","价格最低","价格最高"};
   public static String select[]={"0-50","50-100","100-200","200以上"};
   public static Handler handler;
+  public static int good = 0;
   public static void MeasureListview(ListView listView) {    
       ListAdapter listAdapter = listView.getAdapter();    
       
@@ -63,4 +75,27 @@ public class Global {
 
       return hexValue.toString();
   }
+  public static File saveBitmapToFile(Bitmap bitmap){
+	String path = Environment.getExternalStorageDirectory()+"/pub/";
+	Date date = new Date(System.currentTimeMillis());
+	SimpleDateFormat df = new SimpleDateFormat("yyyymmddHHMMSS");
+	String name=df.format(date);
+	path = path+name+".jpg";
+	File file = new File(path);
+	if(!file.exists())file.mkdirs();
+	try {
+		file.createNewFile();
+		BufferedOutputStream os = new BufferedOutputStream(new FileOutputStream(file));
+		bitmap.compress(CompressFormat.JPEG, 100, os);
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	return file;
+  }
+  public static byte[] Bitmap2Bytes(Bitmap bm) {
+     ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	 bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+	 return baos.toByteArray();
+}
 }

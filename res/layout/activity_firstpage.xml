@@ -46,7 +46,7 @@
           <RelativeLayout
               android:id="@+id/thing"
               android:layout_width="70dp"
-              android:background="@drawable/half_corner"
+              android:background="@drawable/stroke_half_corner_left"
               android:layout_height="30dp">
               <TextView
                   android:id="@+id/thingtext"
@@ -54,7 +54,7 @@
                   android:layout_height="wrap_content"
                   android:text="@string/thing"
                   android:textSize="12sp"
-                  android:textColor="#ff7777"
+                  android:textColor="@color/general"
                   android:layout_centerInParent="true"/>
                   
           </RelativeLayout>
@@ -62,14 +62,14 @@
               android:id="@+id/people"
               android:layout_width="70dp"
               android:layout_height="30dp"
-              android:background="@drawable/stroke_half_corner_right">
+              android:background="@drawable/half_corner_right">
                <TextView
                   android:id="@+id/peopletext"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:text="@string/people"
                   android:textSize="12sp"
-                  android:textColor="#ffffff"
+                  android:textColor="@color/select_text"
                   android:layout_centerInParent="true"/>
           </RelativeLayout>
       </LinearLayout>

@@ -2,6 +2,7 @@ package com.example.leave_unused_publishment.network;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -25,7 +26,10 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.example.leave_unused_publishment.Common.Global;
 
+
+import android.graphics.Bitmap;
 import android.os.Handler;
 import android.util.Log;
 
@@ -295,6 +299,7 @@ public class Communicator {
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
+					Log.e("imageerror",e.toString());
 					handler.post(new Runnable() {
 
 						@Override
@@ -341,7 +346,9 @@ public class Communicator {
     	               listener.onSucceed(new JSONObject(result)); 
     	            } 
     	            else{
-    	            	listener.onFail("密码格式不对");
+    	            	JSONObject obj = new JSONObject(result);
+    	            	String msg = obj.getString("message");
+    	            	listener.onFail(msg);
     	            }
     	        }catch(Exception e){  
     	            e.printStackTrace();  
@@ -355,4 +362,61 @@ public class Communicator {
         
       
     }
+  /*  public static void postFormWithImage(final String url,final Bitmap bitmap,final TransferListener listener){
+        
+        new Thread(new Runnable(){
+      	 public void run(){
+      		 HttpClient httpClient= new DefaultHttpClient();
+      		 try{  
+      	            // 创建HttpPost对象。  
+      			    
+      	            HttpPost post = new HttpPost(BACKEND_IP+url);  
+      	            // 如果传递参数个数比较多的话可以对传递的参数进行封装  
+      	          MultipartEntityBuilder entity = MultipartEntityBuilder.create();
+      	          entity.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+      	          List<NameValuePair> params = new ArrayList<NameValuePair>();  
+      	          entity.addTextBody("token", "", ContentType.TEXT_PLAIN.withCharset("UTF-8")); 
+      	          /* for(Object key : map.keySet())  
+      	            {  
+      	                //封装请求参数  
+      	                params.add(new BasicNameValuePair(key.toString() , map.get(key).toString()));  
+      	            }  
+      	            // 设置请求参数  
+      	            post.setEntity(new UrlEncodedFormEntity(  
+      	                params,HTTP.UTF_8));*/
+      	           /* File file = Global.saveBitmapToFile(bitmap);
+      	            Log.e("filename",file.getPath());
+      	            entity.addPart("file", new FileBody(file));
+      	           // entity.addPart("token", new StringBody(""));
+      	            post.setEntity(entity.build());
+      	            // 发送POST请求  
+      	            HttpResponse httpResponse = httpClient.execute(post);  
+      	            // 如果服务器成功地返回响应  
+      	            String result = EntityUtils  
+      	                    .toString(httpResponse.getEntity());  
+      	            Log.e("rel",result);
+      	            if (httpResponse.getStatusLine()  
+      	                .getStatusCode() == 201||httpResponse.getStatusLine().getStatusCode()==200)  
+      	            {  
+      	                // 获取服务器响应字符串  
+      	               
+      	               listener.onSucceed(new JSONObject(result)); 
+      	            } 
+      	            else{
+      	            	JSONObject obj = new JSONObject(result);
+      	            	String msg = obj.getString("message");
+      	            	listener.onFail(msg);
+      	            }
+      	        }catch(Exception e){  
+      	            e.printStackTrace();  
+      	            Log.e("errorform",e.toString());
+      	        }finally{  
+      	            //httpClient.getConnectionManager().shutdown();  
+      	        }  
+      	        
+      	 }
+        }).start();
+          
+        
+      }*/
 }

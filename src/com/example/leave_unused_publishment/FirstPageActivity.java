@@ -41,7 +41,7 @@ import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.ImageView.ScaleType;
 import android.widget.TextView;
-public class FirstPageActivity extends Activity implements OnItemClickListener{
+public class FirstPageActivity extends BaseActivity {
   RelativeLayout zonelayout,grouplayout,sortlayout,selectionlayout;
   BannerViewPager banner;
   BannerAdapter adapter_ban;
@@ -84,7 +84,7 @@ public class FirstPageActivity extends Activity implements OnItemClickListener{
 	  
 	 ly=(LinearLayout)findViewById(R.id.conditionlayout);
 	 pl = (ListView)findViewById(R.id.productlist);
-	 pl.setOnItemClickListener(this);
+	// pl.setOnItemClickListener(this);
 	// mask = (View)findViewById(R.id.mask);
 	 banner = (BannerViewPager)findViewById(R.id.picwall);
 	 banner.setVisibility(View.VISIBLE);
@@ -354,9 +354,5 @@ public class FirstPageActivity extends Activity implements OnItemClickListener{
 			handler_ban.postDelayed(this, 3000);
 		}
   };
-@Override
-public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-	// TODO Auto-generated method stub
-	startActivity(new Intent(FirstPageActivity.this,DetailActivity.class));
-  }
+
 }

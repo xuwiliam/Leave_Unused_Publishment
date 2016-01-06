@@ -10,12 +10,12 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.ListView;
 
-public class CommentActivity extends Activity {
+public class CommentActivity extends BaseActivity {
   private ListView mylist;
   private MyMsgListAdapter adapter;
   private List<Map> arr = new ArrayList<Map>();
-  @Override  
-  protected void onCreate(Bundle savedInstanceState) {
+  @Override
+public void onCreate(Bundle savedInstanceState) {
 	// TODO Auto-generated method stub
 	super.onCreate(savedInstanceState);
     setContentView(R.layout.msgtablayout);

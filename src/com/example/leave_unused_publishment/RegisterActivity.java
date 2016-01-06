@@ -7,7 +7,7 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
-public class RegisterActivity extends Activity implements OnClickListener{
+public class RegisterActivity extends BaseActivity implements OnClickListener{
 	private EditText phonenumber;
 	
 	public void onCreate(Bundle savedInstanceState){

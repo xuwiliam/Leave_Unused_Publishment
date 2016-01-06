@@ -1,11 +1,13 @@
 package com.example.leave_unused_publishment;
 import org.json.JSONObject;
 
+import com.example.leave_unused_publishment.Common.Global;
 import com.example.leave_unused_publishment.network.Transfer;
 import com.example.leave_unused_publishment.network.TransferListener;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Message;
 import android.text.method.HideReturnsTransformationMethod;
 import android.util.Log;
 import android.view.View;
@@ -14,7 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-public class SettingPwdActivity extends Activity {
+public class SettingPwdActivity extends BaseActivity {
   private EditText setpwd;
   private TextView show;
   private Button registerbtn;
@@ -24,6 +26,7 @@ public class SettingPwdActivity extends Activity {
       init();
   }
   public void init(){
+	  
 	  setpwd = (EditText)findViewById(R.id.pwd);
 	  show = (TextView)findViewById(R.id.show);
 	  show.setOnClickListener(new OnClickListener(){
@@ -44,14 +47,24 @@ public class SettingPwdActivity extends Activity {
 			public void onSucceed(JSONObject obj) {
 				// TODO Auto-generated method stub
 			    	Log.e("setpwd",obj.toString());
-			    	Toast.makeText(SettingPwdActivity.this, "用户创建成功", Toast.LENGTH_SHORT).show();
+			    	Message msg = Global.handler.obtainMessage();
+			       	msg.what=0;
+			       	Bundle data = new Bundle();
+			       	data.putString("tips", "注册成功");
+			       	msg.setData(data);
+			       	Global.handler.sendMessage(msg);
 			    	finish();
 			}
 			
 			@Override
 			public void onFail(String desc) {
 				// TODO Auto-generated method stub
-				
+				Message msg = Global.handler.obtainMessage();
+		       	msg.what=0;
+		       	Bundle data = new Bundle();
+		       	data.putString("tips", desc);
+		       	msg.setData(data);
+		       	Global.handler.sendMessage(msg);
 			}
 		});	
 		}

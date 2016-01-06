@@ -22,7 +22,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-public class LoginActivity extends Activity implements OnClickListener{
+public class LoginActivity extends BaseActivity implements OnClickListener{
 	    private TextView registeracc;
 	    private Button login;
 	    private String username;
@@ -31,7 +31,7 @@ public class LoginActivity extends Activity implements OnClickListener{
 	    private EditText pwd;
 	    
 		@Override
-		protected void onCreate(Bundle savedInstanceState) {
+		public void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
 			SharedPreferences sp = getSharedPreferences("publishconfig", MODE_PRIVATE);
 			String uname = sp.getString("username", null);

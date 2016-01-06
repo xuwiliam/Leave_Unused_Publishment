@@ -29,7 +29,8 @@ import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-public class DetailActivity extends Activity implements OnClickListener,OnItemClickListener{
+import android.widget.TextView;
+public class DetailActivity extends BaseActivity implements OnClickListener,OnItemClickListener{
 	private BannerViewPager banner;
 	private BannerAdapter adapter_ban;
 	private int bannerIndex;
@@ -42,7 +43,10 @@ public class DetailActivity extends Activity implements OnClickListener,OnItemCl
 	private EditText edit;
 	private ListView cmmlist;
 	private Button submit;
+	private ImageView likeimg;
 	private SelectPopWindow menuWindow;
+	private TextView dytext;
+	private boolean hasgood=false;
 	private RelativeLayout like,comment,chat;
 	private int imgid[]={R.drawable.chicken1,R.drawable.chicken2,R.drawable.cake1,
 			R.drawable.cake2,R.drawable.cake3
@@ -56,7 +60,7 @@ public class DetailActivity extends Activity implements OnClickListener,OnItemCl
 		}
 	};
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
     	// TODO Auto-generated method stub
     	super.onCreate(savedInstanceState);
     	setContentView(R.layout.activity_comment);
@@ -70,6 +74,9 @@ public class DetailActivity extends Activity implements OnClickListener,OnItemCl
     	else finish();
     }
     public void init(){
+      dytext=(TextView)findViewById(R.id.dynamictext);
+      dytext.setVisibility(View.INVISIBLE);
+      likeimg=(ImageView)findViewById(R.id.likeorselledimg);
       list=new ArrayList<Map<String,String>>();
       cmmlist=(ListView)findViewById(R.id.commentlist);
       cmmlist.setOnItemClickListener(this);
@@ -125,6 +132,19 @@ public class DetailActivity extends Activity implements OnClickListener,OnItemCl
     	int id = v.getId();
     	switch(id){
       case R.id.likeorselled:
+    	  if(hasgood==false){
+ 			 hasgood=true;
+ 			 Global.good++;
+ 			 dytext.setText(String.valueOf(Global.good));
+ 			 likeimg.setBackgroundResource(R.drawable.haslike);
+ 			 dytext.setVisibility(View.VISIBLE);
+ 		 }
+    	  else{
+    		  hasgood=false;
+  			 Global.good--;
+  			 dytext.setVisibility(View.INVISIBLE);
+  			 likeimg.setBackgroundResource(R.drawable.good);
+    	  }
     		break;
     	case R.id.comment:
          threebtn.setVisibility(View.GONE);
@@ -145,6 +165,8 @@ public class DetailActivity extends Activity implements OnClickListener,OnItemCl
     	  			handler.sendEmptyMessage(0);
     	  		}
     	  	});
+    
+    		
     	}
     }
     public void CreateMenuWindow(){

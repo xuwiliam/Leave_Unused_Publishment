@@ -33,7 +33,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.RelativeLayout;
-public class BuyActivity extends Activity implements OnClickListener{
+public class BuyActivity extends BaseActivity implements OnClickListener{
   private GridAdapter ga;
   int y;
   LinearLayout ly;
@@ -65,7 +65,7 @@ public class BuyActivity extends Activity implements OnClickListener{
 	    }
 	  }
   };
-  protected void onCreate(Bundle savedInstanceState) {
+  public void onCreate(Bundle savedInstanceState) {
 	// TODO Auto-generated method stub
 	super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_firstpage);
@@ -153,16 +153,32 @@ public class BuyActivity extends Activity implements OnClickListener{
 		  ga.notifyDataSetChanged();
 		  break;
 	  case R.id.thingtext:
-		  llayout.setBackgroundResource(R.drawable.stroke_half_corner_left);
+		 /* llayout.setBackgroundResource(R.drawable.stroke_half_corner_left);
 		  thing.setTextColor(getResources().getColor(R.color.general));
 		  rlayout.setBackgroundResource(R.drawable.half_corner_right);
 		  people.setTextColor(getResources().getColor(R.color.select_text));
+		  l.clear();
+		  ls.clear();
+		  j = 0;
+		  for(;j<thingarr.length; j++){
+			  l.add(thingarr[j]);
+		      ls.add(thingname[j]);
+		  }
+		  ga.notifyDataSetChanged();*/
 	      break;
 	  case R.id.peopletext:
-		  llayout.setBackgroundResource(R.drawable.stroke_half_corner_left);
+		  /*llayout.setBackgroundResource(R.drawable.stroke_half_corner_left);
 		  thing.setTextColor(getResources().getColor(R.color.general));
 		  rlayout.setBackgroundResource(R.drawable.half_corner_right);
 		  people.setTextColor(getResources().getColor(R.color.select_text));
+		  l.clear();
+		  ls.clear();
+		  t= 0;
+		  for(; t<peoplearr.length; t++){
+			  l.add(peoplearr[t]);
+		      ls.add(peoplename[t]);
+		  }
+		  ga.notifyDataSetChanged();*/
 	      break;
 	  case R.id.zonelayout:
 		  sv.scrollTo(0, Global.height);
