@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/general"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+    <TextView
+        android:id="@+id/timel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:textColor="@color/text_color_second"
+        android:text=""
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"/>
+    <com.example.leave_unused_publishment.widget.CircleImageView 
+        android:id="@+id/chatpicl"
+        android:layout_below="@id/timel"
+        android:layout_width="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:src="@drawable/tab_icons_10"
+        android:layout_height="40dp"/>    
+    <TextView
+        android:id="@+id/chatuname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:textColor="#090909"
+        android:layout_marginLeft="15dp"
+        android:layout_below="@id/chatpicl"
+        android:text=""/>
+    <TextView
+        android:id="@+id/chatcontent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:textColor="@color/text_content"
+        android:background="@drawable/chatleft_bg"
+        android:layout_alignTop="@id/chatpicl"
+        android:layout_toRightOf="@id/chatpicl"
+        android:layout_marginLeft="10dp"/>
+</RelativeLayout>

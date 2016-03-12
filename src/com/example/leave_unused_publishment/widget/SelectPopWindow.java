@@ -1,6 +1,8 @@
 package com.example.leave_unused_publishment.widget;
 
 
+import com.example.leave_unused_publishment.DetailActivity;
+import com.example.leave_unused_publishment.MainActivity;
 import com.example.leave_unused_publishment.R;
 
 import android.app.Activity;
@@ -28,7 +30,7 @@ public class SelectPopWindow extends PopupWindow {
 		con = context;
 	  
 	 
-	    	
+	    if(context instanceof DetailActivity){	
 	      mMenuView = LayoutInflater.from(con).inflate(R.layout.layout_dialog, null);
 	 		  
 	 	  response = (RelativeLayout)mMenuView.findViewById(R.id.response);
@@ -57,5 +59,35 @@ public class SelectPopWindow extends PopupWindow {
 			}
 		  });
 
-	}	
+	   }
+	    else if(context instanceof MainActivity){
+	    	 mMenuView = LayoutInflater.from(con).inflate(R.layout.publish_popup, null);
+	 		  
+		 	  ImageView turnimg  = (ImageView)mMenuView.findViewById(R.id.publish_turn);
+		 	  ImageView wantimg = (ImageView)mMenuView.findViewById(R.id.publish_want);
+		 	  turnimg.setOnClickListener(itemsOnClick);
+		 	  wantimg.setOnClickListener(itemsOnClick);
+		      this.setContentView(mMenuView);
+			  this.setWidth(LayoutParams.MATCH_PARENT);
+			  this.setHeight(LayoutParams.MATCH_PARENT);
+			  this.setFocusable(true);
+			  this.setAnimationStyle(R.style.AnimBottom);
+			  ColorDrawable dw = new ColorDrawable(0xb0000000);
+			  this.setBackgroundDrawable(dw);
+			  mMenuView.setOnTouchListener(new OnTouchListener() {
+				
+				public boolean onTouch(View v, MotionEvent event) {
+					
+					int height = mMenuView.findViewById(R.id.pubpop).getTop();
+					int y=(int) event.getY();
+					if(event.getAction()==MotionEvent.ACTION_UP){
+						if(y<height){
+							dismiss();
+						}
+					}				
+					return true;
+				}
+			  });	
+	    }
+	}
 }

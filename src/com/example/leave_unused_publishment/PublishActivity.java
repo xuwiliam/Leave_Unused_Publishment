@@ -1,9 +1,9 @@
 package com.example.leave_unused_publishment;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.json.JSONObject;
 
 import com.example.leave_unused_publishment.Common.Global;
@@ -32,6 +32,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,7 +47,8 @@ public class PublishActivity extends BaseActivity{
   private Bitmap bmp;
   private SimpleAdapter simpleAdapter;
   private List<Bitmap>listbitmap=new ArrayList<Bitmap>();
-  private TextView publish;
+  private TextView publish,type;
+  private RelativeLayout price,kind;
   @Override
 public void onCreate(Bundle savedInstanceState) {
 	// TODO Auto-generated method stub
@@ -63,6 +65,30 @@ public void onCreate(Bundle savedInstanceState) {
 	 gv=(GridView)findViewById(R.id.gridView1);
 	 Global.pubactivity = PublishActivity.this;
 	 publish=(TextView)findViewById(R.id.verifypublish);
+	 type=(TextView)findViewById(R.id.type_text);
+	 price=(RelativeLayout)findViewById(R.id.pricelayout);
+     kind=(RelativeLayout)findViewById(R.id.typelayout);
+     price.setOnClickListener(new OnClickListener(){
+    	 @Override
+    	public void onClick(View v) {
+    		// TODO Auto-generated method stub
+    		
+    	}
+     });
+     kind.setOnClickListener(new OnClickListener(){
+    	@Override
+    	public void onClick(View v) {
+    		// TODO Auto-generated method stub
+    	  startActivity(new Intent(PublishActivity.this,ClassifyActivity.class));	
+    	} 
+     });
+	 type.setOnClickListener(new OnClickListener(){
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+		  startActivity(new Intent(PublishActivity.this,ClassifyActivity.class));	
+		} 
+	 });
 	 l=new ArrayList<Map<String,Object>>();
 	 bmp=BitmapFactory.decodeResource(getResources(), R.drawable.addpic);
 	 Map map = new HashMap();
@@ -89,7 +115,9 @@ public void onCreate(Bundle savedInstanceState) {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			Transfer.uploadImage(listbitmap.get(0), new TransferListener() {
+			byte image[] = Global.File2byte(pathImage);
+			
+			Transfer.uploadImage(image, new TransferListener() {
 				
 				@Override
 				public void onSucceed(JSONObject obj) {
@@ -118,7 +146,7 @@ public void onCreate(Bundle savedInstanceState) {
 					//选择图片
 					Intent intent = new Intent(Intent.ACTION_PICK,       
 	                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);  
-	                getParent().startActivityForResult(intent, IMAGE_OPEN);  
+	                startActivityForResult(intent, IMAGE_OPEN);  
 	                //通过onResume()刷新数据
 				}
 				else {
@@ -134,11 +162,11 @@ public void onCreate(Bundle savedInstanceState) {
  		super.onResume();
  		
  	}
-  protected void onActivityResult_pub(int requestCode, int resultCode, Intent data) {  
+  protected void onActivityResult(int requestCode, int resultCode, Intent data) {  
       //super.onActivityResult(requestCode, resultCode, data);        
       //打开图片  
 	  Log.e("pub","pub");
-      if( requestCode==IMAGE_OPEN) {        
+      if( requestCode==IMAGE_OPEN&&data!=null) {        
     	  Log.e("pub1","pub1");
           Uri uri = data.getData();  
           if (!TextUtils.isEmpty(uri.getAuthority())) {  
@@ -186,12 +214,13 @@ public void onCreate(Bundle savedInstanceState) {
     	public void handleMessage(Message msg){
     		if(!TextUtils.isEmpty(pathImage)){
      			Bitmap addbmp=BitmapFactory.decodeFile(pathImage);
+     		
      			Map<String, Object> map = new HashMap<String, Object>();
      	        map.put("itemImage", addbmp);
      	        l.add(0, map);
      	        listbitmap.add(addbmp);
      	        simpleAdapter.notifyDataSetChanged();
-     	        pathImage = null;
+     	        //pathImage = null;
      		}
     	}
     };

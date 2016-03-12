@@ -12,10 +12,14 @@ import com.example.leave_unused_publishment.widget.BannerViewPager;
 import com.example.leave_unused_publishment.widget.SelectPopWindow;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.PagerAdapter;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,7 +51,7 @@ public class DetailActivity extends BaseActivity implements OnClickListener,OnIt
 	private SelectPopWindow menuWindow;
 	private TextView dytext;
 	private boolean hasgood=false;
-	private RelativeLayout like,comment,chat;
+	private RelativeLayout like,comment,chat,Viewholder;
 	private int imgid[]={R.drawable.chicken1,R.drawable.chicken2,R.drawable.cake1,
 			R.drawable.cake2,R.drawable.cake3
 	};
@@ -55,6 +59,7 @@ public class DetailActivity extends BaseActivity implements OnClickListener,OnIt
 		public void handleMessage(Message msg){
 		  if(msg.what==0){
 			  cmadapter.notifyDataSetChanged();
+			  if(cmadapter.getCount()>0)cmmlist.setVisibility(View.VISIBLE);
 			  Global.MeasureListview(cmmlist);
 		  }
 		}
@@ -98,6 +103,8 @@ public class DetailActivity extends BaseActivity implements OnClickListener,OnIt
       chat.setOnClickListener(this);
       input=(RelativeLayout)findViewById(R.id.inputlayout);
       edit=(EditText)findViewById(R.id.input);
+      edit.setFocusable(true);
+      edit.setFocusableInTouchMode(true);
       ban_list=new ArrayList<Integer>();
       int i = 0;
       for(; i<5; i++)ban_list.add(imgid[i]);
@@ -152,6 +159,7 @@ public class DetailActivity extends BaseActivity implements OnClickListener,OnIt
    		 input.bringToFront();
     		break;
     	case R.id.chat:
+    		startActivity(new Intent(DetailActivity.this,ChatActivity.class));
     		break;
     	case R.id.submit:
     	  	handler.post(new Runnable(){
@@ -181,7 +189,9 @@ public class DetailActivity extends BaseActivity implements OnClickListener,OnIt
     	  int id = v.getId();
     	  switch(id){
     	  case R.id.response:
-    		 
+    		  startActivityForResult(new Intent(DetailActivity.this,EditCommentActivity.class), 1);
+    		  menuWindow.dismiss();
+    	
     		 break;
     	  case R.id.cancel:
     		  menuWindow.dismiss();
@@ -236,8 +246,30 @@ public class DetailActivity extends BaseActivity implements OnClickListener,OnIt
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
+		 Viewholder = (RelativeLayout)view;
 	     CreateMenuWindow();
+		
 		// TODO Auto-generated method stub
 		
+	}
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		if(resultCode==4){
+			String comment=data.getStringExtra("comment");
+			SpannableString ss = new SpannableString(Global.username+":"+comment);
+			int len = Global.username.length();
+			int len2 = comment.length();
+			
+			ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.surecolor)), 0, len+1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+			ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.text_content)),len+1,len+len2+1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+			TextView tv = new TextView(DetailActivity.this);
+			tv.setText(ss);
+			LinearLayout la = (LinearLayout)Viewholder.findViewById(R.id.responselist);
+			la.addView(tv);
+			la.setVisibility(View.VISIBLE);
+			Global.MeasureListview(cmmlist);
+		}
+		super.onActivityResult(requestCode, resultCode, data);
 	}
 }

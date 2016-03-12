@@ -51,6 +51,12 @@
         <activity android:name="com.example.leave_unused_publishment.CommentActivity"></activity>
         <activity android:name="com.example.leave_unused_publishment.PrivateMsgActivity"></activity>
         <activity android:name="com.example.leave_unused_publishment.SystemActivity"></activity>
-    </application>
+        <activity android:name="com.example.leave_unused_publishment.AsortmentActivity"></activity>
+        <activity android:name="com.example.leave_unused_publishment.ChatActivity"></activity>
+        <activity android:name="com.example.leave_unused_publishment.ClassifyActivity"></activity>
+        <activity android:name="com.example.leave_unused_publishment.CollectionActivity"></activity>
+        <activity android:name="com.example.leave_unused_publishment.MyWantedActivity"></activity>
+        <activity android:name="com.example.leave_unused_publishment.EditCommentActivity"></activity>
+        </application>
     
 </manifest>

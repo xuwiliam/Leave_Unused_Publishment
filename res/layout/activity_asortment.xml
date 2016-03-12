@@ -1,98 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.example.leave_unused_publishment.widget.StickyScrollView
-   xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/scroll"
-    android:background="@color/general"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
     android:layout_height="match_parent" >
-   
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-   <RelativeLayout
-        android:id="@+id/searchzone" 
+    <RelativeLayout
+        android:id="@+id/searchlayout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/select_text">
-      <EditText
-        android:id="@+id/search"
-        android:background="@drawable/search_btn"
-        android:layout_width="200dp"
-        android:layout_height="30dp"
-        android:hint="搜索标题,用户名"
-        android:drawableLeft="@drawable/search"
-        android:textColor="@color/text_content"
-        android:textSize="15sp"
-        android:text="" 
-        android:layout_centerInParent="true"/>
-        
+        <EditText 
+            android:id="@+id/searchedit"
+            android:layout_width="200dp"
+            android:layout_height="30dp"
+            android:hint="搜索标题,用户名"
+            android:background="@drawable/search_btn"
+            android:drawableLeft="@drawable/search"
+            android:textColor="@color/text_content"
+            android:textSize="15sp"
+            android:text="" 
+            android:layout_centerInParent="true"/>
     </RelativeLayout>
-   <com.example.leave_unused_publishment.widget.BannerViewPager
-        android:id="@+id/picwall"
-        android:layout_width="match_parent"
-        android:visibility="invisible"
-        android:layout_below="@id/searchzone"
-        android:layout_height="150dp"
-        android:layout_marginTop="1dp" ></com.example.leave_unused_publishment.widget.BannerViewPager>
-      <LinearLayout
-          android:id="@+id/slayout"
-          android:layout_below="@id/picwall"
-          android:layout_width="140dp"
-          android:layout_centerHorizontal="true"
-          android:layout_marginTop="20dp"
-          android:layout_height="30dp"
-          android:orientation="horizontal">
-          <RelativeLayout
-              android:id="@+id/thing"
-              android:layout_width="70dp"
-              android:background="@drawable/stroke_half_corner_left"
-              android:layout_height="30dp">
-              <TextView
-                  android:id="@+id/thingtext"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:text="@string/thing"
-                  android:textSize="12sp"
-                  android:textColor="@color/general"
-                  android:layout_centerInParent="true"/>
-                  
-          </RelativeLayout>
-          <RelativeLayout 
-              android:id="@+id/people"
-              android:layout_width="70dp"
-              android:layout_height="30dp"
-              android:background="@drawable/half_corner_right">
-               <TextView
-                  android:id="@+id/peopletext"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:text="@string/people"
-                  android:textSize="12sp"
-                  android:textColor="@color/select_text"
-                  android:layout_centerInParent="true"/>
-          </RelativeLayout>
-      </LinearLayout>
-    <GridView
-        android:id="@+id/type"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_alignLeft="@id/picwall"
-        android:layout_below="@+id/slayout"
-        android:layout_marginTop="10dp"
-        android:horizontalSpacing="2.5dip"
-        android:numColumns="4"
-        android:scrollbars="none"
-        android:verticalSpacing="2.5dip" >
-    </GridView>
-   <LinearLayout 
+    <LinearLayout 
        android:id="@+id/conditionlayout"
        android:layout_width="match_parent"
-       android:layout_below="@id/type"
+       android:layout_below="@id/searchlayout"
        android:layout_marginTop="10dp"
        android:background="#ffffff"
        android:layout_height="50dp"
-       android:tag="sticky"
        android:orientation="horizontal">
        <RelativeLayout
            android:id="@+id/zonelayout"
@@ -205,18 +141,11 @@
                android:layout_marginRight="10dp"/>
                
        </RelativeLayout>
-   </LinearLayout>
-   <ListView
-       android:layout_below="@id/conditionlayout"
-       android:id="@+id/productlist"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"/>
-   <!-- <ProgressBar 
-       android:id="@+id/progressbar"
-       android:layout_width="wrap_content"
-       android:layout_centerInParent="true"
-       android:layout_height="wrap_content"/> -->
-   </RelativeLayout>
-   
-</com.example.leave_unused_publishment.widget.StickyScrollView>
-
+   </LinearLayout>   
+       <ListView
+           android:id="@+id/saleitemlist"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:layout_below="@id/conditionlayout"/>
+   </RelativeLayout> 
+</ScrollView>

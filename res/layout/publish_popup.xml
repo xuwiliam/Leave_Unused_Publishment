@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    <RelativeLayout
+        android:layout_alignParentBottom="true"
+        android:id="@+id/pubpop"
+        android:background="@color/general"
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+        <RelativeLayout 
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:layout_centerInParent="true">
+            <ImageView
+                android:id="@+id/publish_turn"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/choose_from_gallery_1"/>
+            
+            <TextView
+                android:id="@+id/publish_turn_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_color_second"
+                android:textSize="10sp"
+                android:layout_below="@id/publish_turn"
+                android:layout_marginLeft="15dp"
+                android:text="发布转让"/>
+            <ImageView 
+                android:id="@+id/publish_want"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/take_picture_1"
+                android:layout_marginLeft="20dp"
+                android:layout_toRightOf="@id/publish_turn"/>
+            <TextView
+                android:id="@+id/publish_want_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_color_second"
+                android:textSize="10sp"
+                android:layout_below="@id/publish_want"
+                android:layout_marginLeft="65dp"
+                android:text="发布求购"/>
+        </RelativeLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

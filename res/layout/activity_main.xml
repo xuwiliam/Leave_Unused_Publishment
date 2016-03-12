@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+<TabHost 
     android:id="@+id/tabhost"
     android:background="@color/general"
     android:layout_width="match_parent"
@@ -32,3 +37,11 @@
 
     </LinearLayout>
 </TabHost>
+  <ImageView
+     android:id="@+id/add"
+     android:layout_width="40dp"
+     android:layout_height="40dp"
+     android:src="@drawable/tab_add"
+     android:layout_centerHorizontal="true"
+     android:layout_alignParentBottom="true"/>
+</RelativeLayout>

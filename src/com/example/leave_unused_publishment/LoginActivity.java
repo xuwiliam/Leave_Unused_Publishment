@@ -1,6 +1,7 @@
 package com.example.leave_unused_publishment;
 import java.security.NoSuchAlgorithmException;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.example.leave_unused_publishment.Common.Global;
@@ -36,8 +37,13 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 			SharedPreferences sp = getSharedPreferences("publishconfig", MODE_PRIVATE);
 			String uname = sp.getString("username", null);
 			String pword = sp.getString("password", null);
-			if(uname!=null||pword!=null){
+			String token = sp.getString("token", null);
+			Log.e("uname pw",uname+" "+pword+" "+token);
+			if(uname!=null&&pword!=null&&token!=null){
 			  startActivity(new Intent(LoginActivity.this,MainActivity.class));
+			  Global.token=token;
+			  Global.username=uname;
+			  Global.password=pword;
 			  finish();
 			}
 			setContentView(R.layout.base_login_layout);
@@ -100,6 +106,14 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 					       	Log.e("onsucceed",obj.toString());
 					       	Message msg = Global.handler.obtainMessage();
 					       	msg.what=0;
+					       	try {
+								Global.token=obj.getString("token");
+								Log.e("token",Global.token);
+							} catch (JSONException e) {
+								// TODO Auto-generated catch block
+								Log.e("jer",e.toString());
+								e.printStackTrace();
+							}
 					       	Bundle data = new Bundle();
 					       	data.putString("tips", "µÇÂ½³É¹¦");
 					       	msg.setData(data);
@@ -108,6 +122,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 					       	Editor editor = sp.edit();
 					       	editor.putString("username", username);
 					       	editor.putString("password", password);
+					       	editor.putString("token", Global.token);
 					       	editor.commit();
 					       	startActivity(new Intent(LoginActivity.this,MainActivity.class));
 						}

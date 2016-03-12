@@ -1,6 +1,8 @@
 package com.example.leave_unused_publishment.network;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -11,6 +13,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -30,6 +33,8 @@ import com.example.leave_unused_publishment.Common.Global;
 
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Bitmap.CompressFormat;
 import android.os.Handler;
 import android.util.Log;
 
@@ -103,7 +108,31 @@ public class Communicator {
 			}
 		}.start();
 	}
-
+    public static void downLoadImage(final String method,TransferListener listener,Bitmap bitmap,List images){
+    	try{
+    	  URL url = new URL(BACKEND_IP+method);
+    	  HttpURLConnection connection = (HttpURLConnection)url.openConnection(); 
+    	  connection.setRequestMethod("GET");
+    	  connection.setDoInput(true);
+    	  InputStream in = connection.getInputStream();
+          bitmap = BitmapFactory.decodeStream(in);
+          images.add(bitmap);
+          //Map map = new HashMap();
+    	  //map.put("image", bmp);
+    	  if(bitmap!=null){
+    		Log.e("status","successbitmap");
+    		Map map = new HashMap();
+    		map.put("status", "success");
+    	    JSONObject object = new JSONObject(map);
+    	    listener.onSucceed(object);
+     	   }
+    	  else{
+    	    listener.onFail("get Image failed");
+        	}
+    	  }catch(Exception e){
+    		 e.printStackTrace();
+    	 }
+      }
 	public static void sendPost(final String method, final String content,
 			final TransferListener listener) {
 		new Thread() {
@@ -233,7 +262,7 @@ public class Communicator {
 					conn.setRequestProperty("Content-Type", MULTIPART_FORM_DATA
 							+ "; boundary=" + BOUNDARY);
 
-					StringBuilder sb = new StringBuilder();
+					/*StringBuilder sb = new StringBuilder();
 					for (Map.Entry<String, Object> entry : params.entrySet()) {
 						sb.append("--");
 						sb.append(BOUNDARY);
@@ -246,36 +275,43 @@ public class Communicator {
 
 					sb.append("--");
 					sb.append(BOUNDARY);
-					sb.append("\r\n");
+					sb.append("\r\n");*/
 
 					DataOutputStream dos = new DataOutputStream(
 							conn.getOutputStream());
-					dos.write(sb.toString().getBytes());
-
+					//dos.write(sb.toString().getBytes());
+                    dos.writeBytes("--"+BOUNDARY+"\r\n");
 					dos.writeBytes("Content-Disposition: form-data; "
-							+ "name= \"image\"; filename = \"" + name + ".jpg"
+							+ "name=\"file\"; filename=\"" + name + ".jpg"
 							+ "\"\r\n");
 					dos.writeBytes("Content-Type: image/jpg\r\n");
 					dos.writeBytes("\r\n");
+					//dos.writeBytes("Media Type: image/jpg ("+String.valueOf(image.length)+" bytes)");
 					dos.write(image, 0, image.length);
+					
+					Log.e("writepic","here");
 					dos.writeBytes(end);
 
 					dos.writeBytes("--" + BOUNDARY + "--\r\n");
 					dos.flush();
-
+                    Log.e("flush","here");
 					InputStream is = conn.getInputStream();
+					Log.e("inputstream","here");
 					InputStreamReader isr = new InputStreamReader(is, "utf-8");
 					BufferedReader br = new BufferedReader(isr);
-					result = br.readLine();
-
+					String tmpstr=null;
+					while((tmpstr=br.readLine())!=null){
+						result+=tmpstr;
+					}
+                    Log.e("read","here");
 					dos.close();
 					br.close();
 					conn.disconnect();
-
+                   
 					Log.e("publish", "result: " + result);
 					final JSONObject obj = new JSONObject(result);
-					String status = obj.getString("status");
-					if (status.equals("success")) {
+					String status = obj.getString("status_code");
+					if (status.equals("201")) {
 						handler.post(new Runnable() {
 
 							@Override
@@ -362,7 +398,7 @@ public class Communicator {
         
       
     }
-  /*  public static void postFormWithImage(final String url,final Bitmap bitmap,final TransferListener listener){
+    public static void postFormWithImage(final String url,final Bitmap bitmap,final TransferListener listener){
         
         new Thread(new Runnable(){
       	 public void run(){
@@ -372,26 +408,38 @@ public class Communicator {
       			    
       	            HttpPost post = new HttpPost(BACKEND_IP+url);  
       	            // 如果传递参数个数比较多的话可以对传递的参数进行封装  
-      	          MultipartEntityBuilder entity = MultipartEntityBuilder.create();
-      	          entity.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+      	        //  MultipartEntityBuilder entity = MultipartEntityBuilder.create();
+      	         // entity.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
       	          List<NameValuePair> params = new ArrayList<NameValuePair>();  
-      	          entity.addTextBody("token", "", ContentType.TEXT_PLAIN.withCharset("UTF-8")); 
-      	          /* for(Object key : map.keySet())  
-      	            {  
-      	                //封装请求参数  
-      	                params.add(new BasicNameValuePair(key.toString() , map.get(key).toString()));  
-      	            }  
+      	         // entity.addTextBody("token", "", ContentType.TEXT_PLAIN.withCharset("UTF-8")); 
+      	        File file = Global.saveBitmapToFile(bitmap);
+  	            Log.e("filename",file.getCanonicalPath());
+  	           
+  	            byte filedata[] = null;
+  	            Log.e("file2byte", "here");
+  	            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+  	            bitmap.compress(CompressFormat.JPEG, 100, baos);
+  	            filedata = baos.toByteArray();
+  	            if(filedata==null)Log.e("nullbyte","null");
+  	            NameValuePair myfile = new BasicNameValuePair("file", new String(filedata));
+  	            NameValuePair token = new BasicNameValuePair("token", Global.token);
+  	            params.add(myfile);
+  	            params.add(token);
+  	            Log.e("add","here");
+  	            post.setEntity(new UrlEncodedFormEntity(  
+    	                params,HTTP.UTF_8));
+  	          /*  NameValuePair file = new Basic
       	            // 设置请求参数  
       	            post.setEntity(new UrlEncodedFormEntity(  
       	                params,HTTP.UTF_8));*/
-      	           /* File file = Global.saveBitmapToFile(bitmap);
-      	            Log.e("filename",file.getPath());
-      	            entity.addPart("file", new FileBody(file));
+      	           
+      	         //   entity.addPart("file", new FileBody(file));
       	           // entity.addPart("token", new StringBody(""));
-      	            post.setEntity(entity.build());
+      	           // post.setEntity(entity.build());
       	            // 发送POST请求  
       	            HttpResponse httpResponse = httpClient.execute(post);  
       	            // 如果服务器成功地返回响应  
+      	            Log.e("execute","here");
       	            String result = EntityUtils  
       	                    .toString(httpResponse.getEntity());  
       	            Log.e("rel",result);
@@ -418,5 +466,5 @@ public class Communicator {
         }).start();
           
         
-      }*/
+      }
 }

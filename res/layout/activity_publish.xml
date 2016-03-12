@@ -127,7 +127,7 @@
 	          android:layout_centerVertical="true"
 	          android:layout_marginLeft="10dp"
 	          android:text="@string/price"
-	          android:textSize="12sp"
+	          android:textSize="14sp"
 	          android:textColor="@color/text_content"/>
 	      <ImageView 
 	          android:id="@+id/pricearrow"
@@ -156,7 +156,7 @@
 	          android:layout_centerVertical="true"
 	          android:layout_marginLeft="10dp"
 	          android:text="@string/type"
-	          android:textSize="12sp"
+	          android:textSize="14sp"
 	          android:textColor="@color/text_content"/>
 	      <ImageView 
 	          android:id="@+id/typearrow"

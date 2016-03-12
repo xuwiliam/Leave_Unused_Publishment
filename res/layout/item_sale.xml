@@ -6,7 +6,7 @@
     android:orientation="horizontal" >
     <RelativeLayout
         android:id="@+id/Left"
-        android:background="@drawable/edit_bg"
+        android:background="@drawable/sale_item_bg"
         android:layout_width="wrap_content"
         android:layout_marginRight="2dp"
         android:layout_height="175dp"
@@ -16,7 +16,8 @@
             android:id="@+id/itemleft"
             android:layout_width="match_parent"
             android:layout_height="120dp"
-            android:src="@drawable/car1" />
+            android:src="@drawable/car1"
+            android:scaleType="fitXY" />
 
         <TextView
             android:id="@+id/productname"
@@ -53,7 +54,7 @@
     </RelativeLayout>
      <RelativeLayout
         android:id="@+id/Right"
-        android:background="@drawable/edit_bg"
+        android:background="@drawable/sale_item_bg"
         android:layout_width="wrap_content"
         android:layout_marginLeft="2dp"
         android:layout_height="175dp"

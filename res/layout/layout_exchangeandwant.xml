@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    <RelativeLayout
+        android:id="@+id/ExchangeAndWantTitle"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        <TextView
+            android:id="@+id/ewtitle"
+            android:text=""
+            android:textSize="18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_content"
+            android:layout_centerInParent="true"/>
+        <ImageView 
+            android:id="@+id/exback"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/back_second"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"/>
+        
+    </RelativeLayout>
+    <ListView
+        android:id="@+id/myinfoitemlist"
+        android:layout_below="@id/ExchangeAndWantTitle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>   
+</RelativeLayout>

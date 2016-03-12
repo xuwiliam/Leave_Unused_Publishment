@@ -30,11 +30,15 @@ public class MyMsgListAdapter extends BaseAdapter {
 		// TODO Auto-generated method stub
 		return l.get(position);
 	}
-
+  
+	
   public View getView(int position,View convertview,ViewGroup parent ){
-	  if(convertview==null)
+	  //Map map = l.get(position);
+	  
+	  if(convertview==null){
 		  convertview = LayoutInflater.from(c).inflate(R.layout.item_msg, null);
-	      Map map = l.get(position); 
+	      
+	  }
 	      TextView uname=(TextView)convertview.findViewById(R.id.msguname);
 	      TextView time=(TextView)convertview.findViewById(R.id.mymsgtime);
 	  return convertview;

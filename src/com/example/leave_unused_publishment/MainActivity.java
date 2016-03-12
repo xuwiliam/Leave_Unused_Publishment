@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.leave_unused_publishment.Common.Global;
+import com.example.leave_unused_publishment.widget.SelectPopWindow;
 
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -17,6 +18,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,7 +38,9 @@ public class MainActivity extends ActivityGroup{
     Context context = null;
     LocalActivityManager manager = null;
     TabHost tabHost = null;
+    ImageView addpublic;
     private ViewPager pager = null;
+	private SelectPopWindow menuWindow;
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -47,14 +51,22 @@ public class MainActivity extends ActivityGroup{
     }
 	public void init(){
 		context=MainActivity.this;
+	    addpublic = (ImageView)findViewById(R.id.add);
+	    addpublic.setOnClickListener(new OnClickListener(){
+	    	@Override
+	    	public void onClick(View v) {
+	    		// TODO Auto-generated method stub
+	    	   CreateMenuWindow();	
+	    	}
+	    });
         pager = (ViewPager)findViewById(R.id.viewpager);
         listViews = new ArrayList<View>();
         Intent fpa = new Intent(MainActivity.this,FirstPageActivity.class);
         listViews.add(getView("f",fpa));
         Intent buy = new Intent(MainActivity.this,BuyActivity.class);
         listViews.add(getView("b",buy));
-        Intent publish = new Intent(MainActivity.this,PublishActivity.class);
-        listViews.add(getView("p",publish));
+        //Intent publish = new Intent(MainActivity.this,PublishActivity.class);
+        //listViews.add(getView("p",publish));
         Intent message = new Intent(MainActivity.this,MessageActivity.class);
         listViews.add(getView("me",message));
         Intent myinfo = new Intent(MainActivity.this,MyInfoActivity.class);
@@ -75,9 +87,9 @@ public class MainActivity extends ActivityGroup{
 		TextView tvTab2 = (TextView)tabIndicator2.findViewById(R.id.tv_title);
 		tvTab2.setText("求购");
 		tvTab2.setTextColor(R.drawable.textcolor_selector);
-		RelativeLayout tabIndicator3 = (RelativeLayout) LayoutInflater.from(this).inflate(R.layout.tabadd, null);  
-		ImageView img3 = (ImageView)tabIndicator3.findViewById(R.id.iv_img);
-		img3.setBackgroundResource(R.drawable.publish);
+		//RelativeLayout tabIndicator3 = (RelativeLayout) LayoutInflater.from(this).inflate(R.layout.tabadd, null);  
+		//ImageView img3 = (ImageView)tabIndicator3.findViewById(R.id.iv_img);
+		//img3.setBackgroundResource(R.drawable.publish);
 		RelativeLayout tabIndicator4 = (RelativeLayout) LayoutInflater.from(this).inflate(R.layout.tabwidget, null);  
 		ImageView img4 = (ImageView)tabIndicator4.findViewById(R.id.iv_mark);
 		img4.setBackgroundResource(R.drawable.message);
@@ -94,7 +106,7 @@ public class MainActivity extends ActivityGroup{
 		//注意这儿Intent中的activity不能是自身 比如“A”对应的是T1Activity，后面intent就new的T3Activity的。
 		tabHost.addTab(tabHost.newTabSpec("f").setIndicator(tabIndicator1).setContent(intent));
 		tabHost.addTab(tabHost.newTabSpec("b").setIndicator(tabIndicator2).setContent(intent));
-		tabHost.addTab(tabHost.newTabSpec("p").setIndicator(tabIndicator3).setContent(intent));
+		//tabHost.addTab(tabHost.newTabSpec("p").setIndicator(tabIndicator3).setContent(intent));
 		tabHost.addTab(tabHost.newTabSpec("me").setIndicator(tabIndicator4).setContent(intent));
 		tabHost.addTab(tabHost.newTabSpec("my").setIndicator(tabIndicator5).setContent(intent));
 		 pager .setAdapter(new MyPageAdapter(listViews));
@@ -102,13 +114,16 @@ public class MainActivity extends ActivityGroup{
 	            @Override
 	            public void onPageSelected(int position) {
 	                //当viewPager发生改变时，同时改变tabhost上面的currentTab
-	                tabHost.setCurrentTab(position);
+	            	//if (position!=2)
+	                  tabHost.setCurrentTab(position);
 	            }
 	            @Override
 	            public void onPageScrolled(int arg0, float arg1, int arg2) {
+	            
 	            }
 	            @Override
 	            public void onPageScrollStateChanged(int arg0) {
+	            
 	            }
 	        });
 
@@ -125,14 +140,16 @@ public class MainActivity extends ActivityGroup{
 
 	                    pager.setCurrentItem(1);
 	                }
-	                if ("p".equals(tabId)) {
+	               /* if ("p".equals(tabId)) {
+	                    pager.setCurrentItem(3);
+	                	CreateMenuWindow();
+	                	
+	                }*/
+	                if ("me".equals(tabId)) {
 	                    pager.setCurrentItem(2);
 	                }
-	                if ("me".equals(tabId)) {
-	                    pager.setCurrentItem(3);
-	                }
 	                if ("my".equals(tabId)) {
-	                    pager.setCurrentItem(4);
+	                    pager.setCurrentItem(3);
 	                }
 	            }
 	        });
@@ -172,6 +189,7 @@ private class MyPageAdapter extends PagerAdapter {
 
 		@Override
         public void destroyItem(View view, int position, Object arg2) {
+			//if(position==2)return;
             ViewPager pViewPager = ((ViewPager) view);
             pViewPager.removeView(list.get(position));
         }
@@ -187,6 +205,8 @@ private class MyPageAdapter extends PagerAdapter {
 
         @Override
         public Object instantiateItem(View view, int position) {
+        	//if(position==2)position++;
+        	//else if(position==3)return list.get(position);
             ViewPager pViewPager = ((ViewPager) view);
             pViewPager.addView(list.get(position));
             return list.get(position);
@@ -225,10 +245,38 @@ public void onWindowFocusChanged(boolean hasFocus) {
 	// Log.e(null,null);
 	  Log.e("here","here");
 	 if(Global.pubactivity!=null){
-		 Global.pubactivity.onActivityResult_pub(requestCode, resultCode, data);
+		 Global.pubactivity.onActivityResult(requestCode, resultCode, data);
 	   
 	 }
 	 
 	
 }
+  public void CreateMenuWindow(){
+  	menuWindow = new SelectPopWindow(
+				MainActivity.this, itemsOnClick);
+
+		menuWindow.showAtLocation(MainActivity.this.findViewById(R.id.tabhost),
+				Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+  }
+  public OnClickListener itemsOnClick = new OnClickListener(){
+  	public void onClick(View v){
+  	  int id = v.getId();
+  	  switch(id){
+  	  case R.id.response:
+  		 
+  		 break;
+  	  case R.id.cancel:
+  		  menuWindow.dismiss();
+  		  break;
+  	  case R.id.publish_turn:
+  		  startActivity(new Intent(MainActivity.this,PublishActivity.class));
+  		  break;
+  	  case R.id.publish_want:
+  		  startActivity(new Intent(MainActivity.this,PublishActivity.class));
+  		  break;
+  		  
+  	  }
+  	  
+  	}
+  };
 }

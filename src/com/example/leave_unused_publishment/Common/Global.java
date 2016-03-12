@@ -3,6 +3,8 @@ package com.example.leave_unused_publishment.Common;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.MessageDigest;
@@ -37,6 +39,9 @@ public class Global {
   public static String select[]={"0-50","50-100","100-200","200ртио"};
   public static Handler handler;
   public static int good = 0;
+  public static String token;
+  public static String username;
+  public static String password;
   public static void MeasureListview(ListView listView) {    
       ListAdapter listAdapter = listView.getAdapter();    
       
@@ -98,4 +103,34 @@ public class Global {
 	 bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
 	 return baos.toByteArray();
 }
+  public static byte[] File2byte(String filePath)  
+  {  
+      byte[] buffer = null;  
+      try  
+      {  
+    	  Log.e("filepath",filePath);
+          File file = new File(filePath);  
+          FileInputStream fis = new FileInputStream(file);  
+          ByteArrayOutputStream bos = new ByteArrayOutputStream();  
+          byte[] b = new byte[1024];  
+          int n;  
+          while ((n = fis.read(b)) != -1)  
+          {  
+              bos.write(b, 0, n);  
+          }  
+          fis.close();  
+          bos.close();  
+          buffer = bos.toByteArray();
+          return buffer;
+      }  
+      catch (FileNotFoundException e)  
+      {  
+          e.printStackTrace();  
+      }  
+      catch (IOException e)  
+      {  
+          e.printStackTrace();  
+      }  
+      return null;  
+  }  
 }
