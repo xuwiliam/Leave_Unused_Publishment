@@ -270,7 +270,7 @@ public class DetailActivity extends BaseActivity implements OnClickListener,OnIt
 			ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.text_content)),len+1,len+len2+1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 			//TextView tv = new TextView(DetailActivity.this);
 			//tv.setText(ss);
-		 
+		    
 			ChildListView la = (ChildListView)Viewholder.findViewById(R.id.responselist);
 			ResponseAdapter adapter = (ResponseAdapter)la.getAdapter();
 			List<String> ls = adapter.getList();
