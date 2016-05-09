@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:paddingTop="5dp"
+    android:descendantFocusability="blocksDescendants"
     android:layout_height="wrap_content" >
     <com.example.leave_unused_publishment.widget.CircleImageView
         android:id="@+id/upic"
@@ -28,7 +29,7 @@
         android:layout_alignLeft="@id/uname"
         android:layout_below="@id/uname"
         android:layout_marginTop="10dp"/>
-    <LinearLayout
+    <com.example.leave_unused_publishment.widget.ChildListView
         android:id="@+id/responselist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -37,7 +38,8 @@
         android:background="@drawable/choosearea_bg_left"
         android:orientation="vertical"
         android:layout_marginTop="20dp"
-        android:layout_alignLeft="@id/uname"></LinearLayout>
+        android:layout_alignStart="@id/uname"
+        android:layout_alignLeft="@id/uname"></com.example.leave_unused_publishment.widget.ChildListView>
     
 
 </RelativeLayout>

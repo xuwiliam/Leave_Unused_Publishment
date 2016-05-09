@@ -4,7 +4,7 @@
      android:layout_width="match_parent"
      android:background="@color/general"
      android:layout_height="match_parent">
-<ScrollView
+<LinearLayout
     android:id="@+id/main_"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
@@ -115,7 +115,7 @@
          android:background="@color/line_color"
          android:layout_below="@id/newcomment"
          android:layout_marginTop="10dp"/>   
-      <ListView
+      <com.example.leave_unused_publishment.widget.RefreshListView
           android:id="@+id/commentlist"
           android:layout_below="@id/newcomment"
           android:layout_marginTop="15dp"
@@ -139,7 +139,7 @@
     
      
 </RelativeLayout>
-</ScrollView>
+</LinearLayout>
 <LinearLayout 
        android:id="@+id/threebtnlayout"
        android:layout_width="match_parent"

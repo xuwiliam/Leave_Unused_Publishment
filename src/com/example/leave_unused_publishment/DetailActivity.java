@@ -8,7 +8,11 @@ import java.util.TimerTask;
 
 import com.example.leave_unused_publishment.Common.Global;
 import com.example.leave_unused_publishment.adapter.CommentListAdapter;
+import com.example.leave_unused_publishment.adapter.ResponseAdapter;
 import com.example.leave_unused_publishment.widget.BannerViewPager;
+import com.example.leave_unused_publishment.widget.ChildListView;
+import com.example.leave_unused_publishment.widget.RefreshListView;
+import com.example.leave_unused_publishment.widget.RefreshListView.RefreshListViewListener;
 import com.example.leave_unused_publishment.widget.SelectPopWindow;
 
 import android.app.Activity;
@@ -33,8 +37,9 @@ import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
-public class DetailActivity extends BaseActivity implements OnClickListener,OnItemClickListener{
+public class DetailActivity extends BaseActivity implements OnClickListener,OnItemClickListener,RefreshListViewListener{
 	private BannerViewPager banner;
 	private BannerAdapter adapter_ban;
 	private int bannerIndex;
@@ -45,7 +50,7 @@ public class DetailActivity extends BaseActivity implements OnClickListener,OnIt
 	private CommentListAdapter cmadapter;
 	private List<Map<String, String>> list;
 	private EditText edit;
-	private ListView cmmlist;
+	private RefreshListView cmmlist;
 	private Button submit;
 	private ImageView likeimg;
 	private SelectPopWindow menuWindow;
@@ -83,7 +88,7 @@ public class DetailActivity extends BaseActivity implements OnClickListener,OnIt
       dytext.setVisibility(View.INVISIBLE);
       likeimg=(ImageView)findViewById(R.id.likeorselledimg);
       list=new ArrayList<Map<String,String>>();
-      cmmlist=(ListView)findViewById(R.id.commentlist);
+      cmmlist=(RefreshListView)findViewById(R.id.commentlist);
       cmmlist.setOnItemClickListener(this);
       cmadapter = new CommentListAdapter(DetailActivity.this,list);
       cmmlist.setAdapter(cmadapter);
@@ -247,8 +252,8 @@ public class DetailActivity extends BaseActivity implements OnClickListener,OnIt
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
 		 Viewholder = (RelativeLayout)view;
+		 cmadapter.positem=position;
 	     CreateMenuWindow();
-		
 		// TODO Auto-generated method stub
 		
 	}
@@ -263,13 +268,28 @@ public class DetailActivity extends BaseActivity implements OnClickListener,OnIt
 			
 			ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.surecolor)), 0, len+1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 			ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.text_content)),len+1,len+len2+1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-			TextView tv = new TextView(DetailActivity.this);
-			tv.setText(ss);
-			LinearLayout la = (LinearLayout)Viewholder.findViewById(R.id.responselist);
-			la.addView(tv);
+			//TextView tv = new TextView(DetailActivity.this);
+			//tv.setText(ss);
+		 
+			ChildListView la = (ChildListView)Viewholder.findViewById(R.id.responselist);
+			ResponseAdapter adapter = (ResponseAdapter)la.getAdapter();
+			List<String> ls = adapter.getList();
+			ls.add(ss.toString());
+			adapter.notifyDataSetChanged();
 			la.setVisibility(View.VISIBLE);
+			//Global.MeasureListview(la);
 			Global.MeasureListview(cmmlist);
 		}
 		super.onActivityResult(requestCode, resultCode, data);
 	}
+  @Override
+   public void onload() {
+	// TODO Auto-generated method stub
+	
+   }
+  @Override
+   public void refresh() {
+	// TODO Auto-generated method stub
+	
+  }
 }
