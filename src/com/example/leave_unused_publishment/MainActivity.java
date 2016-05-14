@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.leave_unused_publishment.Common.Global;
+import com.example.leave_unused_publishment.DB.DBUtil;
 import com.example.leave_unused_publishment.widget.SelectPopWindow;
 
 import android.support.v4.view.PagerAdapter;
@@ -51,6 +52,7 @@ public class MainActivity extends ActivityGroup{
     }
 	public void init(){
 		context=MainActivity.this;
+		Global.du = new DBUtil(context);
 	    addpublic = (ImageView)findViewById(R.id.add);
 	    addpublic.setOnClickListener(new OnClickListener(){
 	    	@Override

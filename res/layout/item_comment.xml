@@ -29,17 +29,16 @@
         android:layout_alignLeft="@id/uname"
         android:layout_below="@id/uname"
         android:layout_marginTop="10dp"/>
-    <com.example.leave_unused_publishment.widget.ChildListView
+    <LinearLayout
         android:id="@+id/responselist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/commentcontent"
-        android:visibility="gone"
         android:background="@drawable/choosearea_bg_left"
         android:orientation="vertical"
         android:layout_marginTop="20dp"
         android:layout_alignStart="@id/uname"
-        android:layout_alignLeft="@id/uname"></com.example.leave_unused_publishment.widget.ChildListView>
+        android:layout_alignLeft="@id/uname"></LinearLayout>
     
 
 </RelativeLayout>

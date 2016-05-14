@@ -15,6 +15,7 @@ import java.util.Date;
 
 import com.example.leave_unused_publishment.FirstPageActivity;
 import com.example.leave_unused_publishment.PublishActivity;
+import com.example.leave_unused_publishment.DB.DBUtil;
 
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
@@ -42,6 +43,7 @@ public class Global {
   public static String token;
   public static String username;
   public static String password;
+  public static DBUtil du;
   public static void MeasureListview(ListView listView) {    
       ListAdapter listAdapter = listView.getAdapter();    
       

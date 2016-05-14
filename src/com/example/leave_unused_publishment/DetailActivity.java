@@ -1,8 +1,10 @@
 package com.example.leave_unused_publishment;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -24,6 +26,7 @@ import android.support.v4.view.PagerAdapter;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,6 +59,8 @@ public class DetailActivity extends BaseActivity implements OnClickListener,OnIt
 	private SelectPopWindow menuWindow;
 	private TextView dytext;
 	private boolean hasgood=false;
+	private Map map;
+	private int pos;
 	private RelativeLayout like,comment,chat,Viewholder;
 	private int imgid[]={R.drawable.chicken1,R.drawable.chicken2,R.drawable.cake1,
 			R.drawable.cake2,R.drawable.cake3
@@ -63,10 +68,26 @@ public class DetailActivity extends BaseActivity implements OnClickListener,OnIt
 	final Handler handler = new Handler(){
 		public void handleMessage(Message msg){
 		  if(msg.what==0){
+			  //Global.du.insertdata(Global.username, comment, "");
+			  Global.du.showdata();
 			  cmadapter.notifyDataSetChanged();
 			  if(cmadapter.getCount()>0)cmmlist.setVisibility(View.VISIBLE);
 			  Global.MeasureListview(cmmlist);
 		  }
+		/*  else if(msg.what==2){
+			  String commenttext = msg.getData().getString("commenttext");
+			  String name_cmm[]=commenttext.split("@");
+			  if(name_cmm!=null){
+			      
+				    int i = 0;
+				    for(; i<name_cmm.length; i++){
+					  TextView tv = new TextView(DetailActivity.this);
+					  tv.setText(name_cmm[i]);
+					  //holder.l.addView(tv);
+					   
+				  }
+			    }
+		  }*/
 		}
 	};
     @Override
@@ -90,8 +111,14 @@ public class DetailActivity extends BaseActivity implements OnClickListener,OnIt
       list=new ArrayList<Map<String,String>>();
       cmmlist=(RefreshListView)findViewById(R.id.commentlist);
       cmmlist.setOnItemClickListener(this);
-      cmadapter = new CommentListAdapter(DetailActivity.this,list);
+      map = Global.du.readdata(10, 0);
+      Global.du.showdata();
+      Log.e("mapsize",String.valueOf(map.size()));
+      cmadapter = new CommentListAdapter(DetailActivity.this,map,handler);
       cmmlist.setAdapter(cmadapter);
+      cmmlist.setRefreshListViewListener(this);
+      cmmlist.setEnableFresh(true);
+      cmmlist.setEnableLoad(true);
       banner=(BannerViewPager)findViewById(R.id.imgwall);
       threebtn=(LinearLayout)findViewById(R.id.threebtnlayout);
       submit=(Button)findViewById(R.id.submit);
@@ -174,6 +201,7 @@ public class DetailActivity extends BaseActivity implements OnClickListener,OnIt
     	  			Map map = new HashMap();
     	  			map.put("content", cont);
     	  			map.put("name","Cici");
+    	  			Global.du.insertdata("Cici", cont, "");
     	  			list.add(0, map);
     	  			handler.sendEmptyMessage(0);
     	  		}
@@ -252,8 +280,9 @@ public class DetailActivity extends BaseActivity implements OnClickListener,OnIt
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
 		 Viewholder = (RelativeLayout)view;
-		 cmadapter.positem=position;
+		 //cmadapter.positem=position;
 	     CreateMenuWindow();
+	     pos = position;
 		// TODO Auto-generated method stub
 		
 	}
@@ -270,13 +299,16 @@ public class DetailActivity extends BaseActivity implements OnClickListener,OnIt
 			ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.text_content)),len+1,len+len2+1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 			//TextView tv = new TextView(DetailActivity.this);
 			//tv.setText(ss);
-		    
-			ChildListView la = (ChildListView)Viewholder.findViewById(R.id.responselist);
-			ResponseAdapter adapter = (ResponseAdapter)la.getAdapter();
-			List<String> ls = adapter.getList();
-			ls.add(ss.toString());
-			adapter.notifyDataSetChanged();
+		   
+			LinearLayout la = (LinearLayout)Viewholder.findViewById(R.id.responselist);
 			la.setVisibility(View.VISIBLE);
+		    Global.du.updatedata(comment,(Integer)la.getTag());
+			//ResponseAdapter adapter = (ResponseAdapter)la.getAdapter();
+			TextView tv = new TextView(DetailActivity.this);
+			tv.setText(ss);
+			la.addView(tv);
+			//la=null;
+			
 			//Global.MeasureListview(la);
 			Global.MeasureListview(cmmlist);
 		}
@@ -284,12 +316,45 @@ public class DetailActivity extends BaseActivity implements OnClickListener,OnIt
 	}
   @Override
    public void onload() {
-	// TODO Auto-generated method stub
-	
+	  handler.postDelayed(new Runnable(){
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				
+				Map tmp = Global.du.readdata(10, Global.du.getCount()-cmadapter.getRow());
+			    if(tmp!=null){
+				  cmadapter.setRow(cmadapter.getRow()+tmp.size());
+				  Log.e("row",String.valueOf(cmadapter.getRow()));
+				  for (Iterator<Map<Integer,String>> iter=tmp.entrySet().iterator(); iter.hasNext(); ){
+					  Map.Entry<Integer, String> entry = (Entry<Integer, String>) iter.next();
+					  Log.e("entry",String.valueOf(entry.getKey())+entry.getValue());
+					  map.put(entry.getKey(), entry.getValue());
+				}
+				  cmadapter.notifyDataSetChanged();
+			  }
+			    onLo();
+			}
+		}, 2000);
    }
   @Override
    public void refresh() {
 	// TODO Auto-generated method stub
+	handler.postDelayed(new Runnable(){
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			Map tmp = Global.du.readdata(1, 0);
+			map.put(Global.du.getCount(), tmp.get(Global.du.getCount()).toString());
+			cmadapter.notifyDataSetChanged();
+			onLo();
+		}
+	}, 2000);
 	
   }
+  private void onLo() {
+		cmmlist.stopRefresh();
+		cmmlist.stopLoadMore();
+		cmmlist.setRefreshtime("¸Õ¸Õ");
+	}
+  
 }

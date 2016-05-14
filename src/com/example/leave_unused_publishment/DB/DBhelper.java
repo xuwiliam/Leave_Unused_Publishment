@@ -12,10 +12,11 @@ public class DBhelper extends SQLiteOpenHelper {
 @Override
 public void onCreate(SQLiteDatabase db) {
 	// TODO Auto-generated method stub
-	db.execSQL("create table if not exits publishment ("+
+	db.execSQL("create table if not exists publishment ("+
 	           "id integer primary key autoincrement ,"
 	           +"name text ,"
-			   +"content text )"
+			   +"content text ,"
+	           +"comment text )"
 			   );
 	
 }
